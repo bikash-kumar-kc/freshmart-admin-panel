@@ -19,6 +19,7 @@
   --app-foreground: #171717; /* default body text */
   --app-muted-foreground: #6b7280; /* secondary/muted text (gray-500 equivalent) */
   --app-border: #e5e7eb; /* default hairline borders */
+  --app-muted-foreground-hover:#4f545e;
 
   /* ===== Sidebar ===== */
   --sidebar-background: #ffffff;
@@ -129,7 +130,7 @@
       /* ===== Brand core ===== */
       --brand-primary: #4f8a1d; /* slightly brighter green for dark-bg contrast */
       --brand-primary-soft: #1c2a13; /* dark green tint for hover backgrounds */
-      --brand-cta: #e08a3e; /* brighter orange for dark-bg contrast */
+      --brand-cta: #ff0606; /* brighter orange for dark-bg contrast */
       --brand-cta-soft: #2e2118; /* dark orange tint */
 
       /* ===== App shell ===== */
@@ -137,6 +138,7 @@
       --app-foreground: #ededed;
       --app-muted-foreground: #9ca3af;
       --app-border: #262626;
+      --app-muted-foreground-hover:#69717f;
 
       /* ===== Sidebar ===== */
       --sidebar-background: #171717;
@@ -254,6 +256,7 @@
   --color-app-foreground: var(--app-foreground);
   --color-app-muted-foreground: var(--app-muted-foreground);
   --color-app-border: var(--app-border);
+  --color-app-muted-foreground-hover:var(--app-muted-foreground-hover);
 
   --color-sidebar-background: var(--sidebar-background);
   --color-sidebar-border: var(--sidebar-border);
