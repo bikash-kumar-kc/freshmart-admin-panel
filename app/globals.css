@@ -1,26 +1,342 @@
 @import "tailwindcss";
 
+/*
+  FreshMart Admin Panel — Theme
+  Same brand as the vendor portal. Tailwind v4 (@theme inline mapping below).
+  Naming convention: --{component}-{property}[-{state}]
+*/
+
+/* on light theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ===== Brand core ===== */
+  --brand-primary: #3b6d11; /* FreshMart green — primary actions, active states */
+  --brand-primary-soft: #eaf2e1; /* light green tint — hover backgrounds, subtle highlights */
+  --brand-cta: #c8742a; /* FreshMart orange — secondary/CTA actions */
+  --brand-cta-soft: #fbede1; /* light orange tint — CTA hover backgrounds */
+
+  /* ===== App shell ===== */
+  --app-background: #f5f9f0; /* overall page background */
+  --app-foreground: #171717; /* default body text */
+  --app-muted-foreground: #6b7280; /* secondary/muted text (gray-500 equivalent) */
+  --app-border: #e5e7eb; /* default hairline borders */
+
+  /* ===== Sidebar ===== */
+  --sidebar-background: #ffffff;
+  --sidebar-border: #f1f1f1;
+  --sidebar-text: #6b7280;
+  --sidebar-text-hover: #3b6d11;
+  --sidebar-bg-hover: #eaf2e1;
+  --sidebar-bg-active: #3b6d11;
+  --sidebar-text-active: #ffffff;
+  --sidebar-section-divider: #f1f1f1;
+
+  /* ===== Header / top bar ===== */
+  --header-background: #ffffff;
+  --header-border: #f1f1f1;
+  --header-text: #171717;
+
+  /* ===== Stat cards ===== */
+  --statcard-background: #ffffff;
+  --statcard-border: #f1f1f1;
+  --statcard-label: #6b7280;
+  --statcard-value: #171717;
+  --statcard-accent-primary: #3b6d11;
+  --statcard-accent-cta: #c8742a;
+  --statcard-shadow-hover: rgba(0, 0, 0, 0.06);
+
+  /* ===== Buttons ===== */
+  --button-primary-bg: #c8742a;
+  --button-primary-bg-hover: #a85e1c;
+  --button-primary-text: #ffffff;
+
+  --button-secondary-bg: #3b6d11;
+  --button-secondary-bg-hover: #2e550d;
+  --button-secondary-text: #ffffff;
+
+  --button-ghost-text: #6b7280;
+  --button-ghost-bg-hover: #f3f4f6;
+
+  --button-destructive-bg: #dc2626;
+  --button-destructive-bg-hover: #b91c1c;
+  --button-destructive-text: #ffffff;
+
+  --button-disabled-opacity: 0.6;
+
+  /* ===== Form inputs ===== */
+  --input-background: #ffffff;
+  --input-border: #e2e8f0;
+  --input-text: #1e293b;
+  --input-placeholder: #94a3b8;
+  --input-border-focus: #3b6d11;
+  --input-ring-focus: rgba(59, 109, 17, 0.25);
+  --input-border-error: #fda4af;
+  --input-ring-error: rgba(244, 63, 94, 0.2);
+  --input-text-error: #f43f5e;
+
+  /* ===== Dialogs / modals ===== */
+  --dialog-background: #ffffff;
+  --dialog-border: #f1f1f1;
+  --dialog-title: #171717;
+  --dialog-description: #6b7280;
+  --dialog-close-hover-bg: #fef2f2;
+  --dialog-close-hover-text: #f43f5e;
+  --dialog-overlay: rgba(0, 0, 0, 0.4);
+
+  /* ===== Toasts ===== */
+  --toast-success-bg: #eaf2e1;
+  --toast-success-border: #3b6d11;
+  --toast-success-text: #235007;
+  --toast-error-bg: #fef2f2;
+  --toast-error-border: #f43f5e;
+  --toast-error-text: #9f1239;
+  --toast-info-bg: #eff6ff;
+  --toast-info-border: #3b82f6;
+  --toast-info-text: #1e40af;
+
+  /* ===== Status badges/pills — SHARED across quotations & orders ===== */
+  /* Semantic meaning stays consistent regardless of domain */
+  --status-awaiting-bg: #fbede1; /* pending / draft / awaiting response */
+  --status-awaiting-text: #c8742a;
+  --status-inprogress-bg: #eff6ff; /* processing / countered / on-the-way */
+  --status-inprogress-text: #1d4ed8;
+  --status-approved-bg: #eaf2e1; /* approved / completed / delivered */
+  --status-approved-text: #3b6d11;
+  --status-rejected-bg: #fef2f2; /* rejected / cancelled / deleted */
+  --status-rejected-text: #dc2626;
+  --status-neutral-bg: #f3f4f6; /* draft / unverified / inactive */
+  --status-neutral-text: #6b7280;
+
+  /* ===== Tables ===== */
+  --table-header-bg: #f9fafb;
+  --table-header-text: #6b7280;
+  --table-row-border: #f1f1f1;
+  --table-row-bg-hover: #fafbf8;
+  --table-cell-text: #171717;
+
+  /* ===== Notification list ===== */
+  --notification-bg-unread: #eaf2e1;
+  --notification-bg-read: #ffffff;
+  --notification-border: #f1f1f1;
+  --notification-title: #171717;
+  --notification-body: #6b7280;
+  --notification-timestamp: #9ca3af;
+  --notification-dot-unread: #c8742a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* on dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+      /* ===== Brand core ===== */
+      --brand-primary: #4f8a1d; /* slightly brighter green for dark-bg contrast */
+      --brand-primary-soft: #1c2a13; /* dark green tint for hover backgrounds */
+      --brand-cta: #e08a3e; /* brighter orange for dark-bg contrast */
+      --brand-cta-soft: #2e2118; /* dark orange tint */
+
+      /* ===== App shell ===== */
+      --app-background: #121212;
+      --app-foreground: #ededed;
+      --app-muted-foreground: #9ca3af;
+      --app-border: #262626;
+
+      /* ===== Sidebar ===== */
+      --sidebar-background: #171717;
+      --sidebar-border: #262626;
+      --sidebar-text: #9ca3af;
+      --sidebar-text-hover: #4f8a1d;
+      --sidebar-bg-hover: #1c2a13;
+      --sidebar-bg-active: #4f8a1d;
+      --sidebar-text-active: #ffffff;
+      --sidebar-section-divider: #262626;
+
+      /* ===== Header / top bar ===== */
+      --header-background: #171717;
+      --header-border: #262626;
+      --header-text: #ededed;
+
+      /* ===== Stat cards ===== */
+      --statcard-background: #1b1b1b;
+      --statcard-border: #262626;
+      --statcard-label: #9ca3af;
+      --statcard-value: #f5f5f5;
+      --statcard-accent-primary: #4f8a1d;
+      --statcard-accent-cta: #e08a3e;
+      --statcard-shadow-hover: rgba(0, 0, 0, 0.4);
+
+      /* ===== Buttons ===== */
+      --button-primary-bg: #e08a3e;
+      --button-primary-bg-hover: #c97429;
+      --button-primary-text: #171717;
+
+      --button-secondary-bg: #4f8a1d;
+      --button-secondary-bg-hover: #3f6f17;
+      --button-secondary-text: #ffffff;
+
+      --button-ghost-text: #9ca3af;
+      --button-ghost-bg-hover: #1f1f1f;
+
+      --button-destructive-bg: #ef4444;
+      --button-destructive-bg-hover: #dc2626;
+      --button-destructive-text: #ffffff;
+
+      --button-disabled-opacity: 0.5;
+
+      /* ===== Form inputs ===== */
+      --input-background: #1b1b1b;
+      --input-border: #333333;
+      --input-text: #ededed;
+      --input-placeholder: #6b7280;
+      --input-border-focus: #4f8a1d;
+      --input-ring-focus: rgba(79, 138, 29, 0.3);
+      --input-border-error: #f87171;
+      --input-ring-error: rgba(248, 113, 113, 0.25);
+      --input-text-error: #f87171;
+
+      /* ===== Dialogs / modals ===== */
+      --dialog-background: #1b1b1b;
+      --dialog-border: #262626;
+      --dialog-title: #f5f5f5;
+      --dialog-description: #9ca3af;
+      --dialog-close-hover-bg: #2a1616;
+      --dialog-close-hover-text: #f87171;
+      --dialog-overlay: rgba(0, 0, 0, 0.6);
+
+      /* ===== Toasts ===== */
+      --toast-success-bg: #16240d;
+      --toast-success-border: #4f8a1d;
+      --toast-success-text: #86d45a;
+      --toast-error-bg: #2a1616;
+      --toast-error-border: #f87171;
+      --toast-error-text: #fca5a5;
+      --toast-info-bg: #14213a;
+      --toast-info-border: #3b82f6;
+      --toast-info-text: #93c5fd;
+
+      /* ===== Status badges/pills — SHARED across quotations & orders ===== */
+      --status-awaiting-bg: #2e2118;
+      --status-awaiting-text: #e08a3e;
+      --status-inprogress-bg: #14213a;
+      --status-inprogress-text: #60a5fa;
+      --status-approved-bg: #16240d;
+      --status-approved-text: #6dc93f;
+      --status-rejected-bg: #2a1616;
+      --status-rejected-text: #f87171;
+      --status-neutral-bg: #262626;
+      --status-neutral-text: #9ca3af;
+
+      /* ===== Tables ===== */
+      --table-header-bg: #171717;
+      --table-header-text: #9ca3af;
+      --table-row-border: #262626;
+      --table-row-bg-hover: #1c1c1c;
+      --table-cell-text: #ededed;
+
+      /* ===== Notification list ===== */
+      --notification-bg-unread: #1c2a13;
+      --notification-bg-read: #171717;
+      --notification-border: #262626;
+      --notification-title: #f5f5f5;
+      --notification-body: #9ca3af;
+      --notification-timestamp: #6b7280;
+      --notification-dot-unread: #e08a3e;
+    
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* mapping to tailwind utility class... */
+@theme inline {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-soft: var(--brand-primary-soft);
+  --color-brand-cta: var(--brand-cta);
+  --color-brand-cta-soft: var(--brand-cta-soft);
+
+  --color-app-background: var(--app-background);
+  --color-app-foreground: var(--app-foreground);
+  --color-app-muted-foreground: var(--app-muted-foreground);
+  --color-app-border: var(--app-border);
+
+  --color-sidebar-background: var(--sidebar-background);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-text-hover: var(--sidebar-text-hover);
+  --color-sidebar-bg-hover: var(--sidebar-bg-hover);
+  --color-sidebar-bg-active: var(--sidebar-bg-active);
+  --color-sidebar-text-active: var(--sidebar-text-active);
+  --color-sidebar-section-divider: var(--sidebar-section-divider);
+
+  --color-header-background: var(--header-background);
+  --color-header-border: var(--header-border);
+  --color-header-text: var(--header-text);
+
+  --color-statcard-background: var(--statcard-background);
+  --color-statcard-border: var(--statcard-border);
+  --color-statcard-label: var(--statcard-label);
+  --color-statcard-value: var(--statcard-value);
+  --color-statcard-accent-primary: var(--statcard-accent-primary);
+  --color-statcard-accent-cta: var(--statcard-accent-cta);
+
+  --color-button-primary-bg: var(--button-primary-bg);
+  --color-button-primary-bg-hover: var(--button-primary-bg-hover);
+  --color-button-primary-text: var(--button-primary-text);
+  --color-button-secondary-bg: var(--button-secondary-bg);
+  --color-button-secondary-bg-hover: var(--button-secondary-bg-hover);
+  --color-button-secondary-text: var(--button-secondary-text);
+  --color-button-ghost-text: var(--button-ghost-text);
+  --color-button-ghost-bg-hover: var(--button-ghost-bg-hover);
+  --color-button-destructive-bg: var(--button-destructive-bg);
+  --color-button-destructive-bg-hover: var(--button-destructive-bg-hover);
+  --color-button-destructive-text: var(--button-destructive-text);
+
+  --color-input-background: var(--input-background);
+  --color-input-border: var(--input-border);
+  --color-input-text: var(--input-text);
+  --color-input-placeholder: var(--input-placeholder);
+  --color-input-border-focus: var(--input-border-focus);
+  --color-input-border-error: var(--input-border-error);
+  --color-input-text-error: var(--input-text-error);
+
+  --color-dialog-background: var(--dialog-background);
+  --color-dialog-border: var(--dialog-border);
+  --color-dialog-title: var(--dialog-title);
+  --color-dialog-description: var(--dialog-description);
+  --color-dialog-close-hover-bg: var(--dialog-close-hover-bg);
+  --color-dialog-close-hover-text: var(--dialog-close-hover-text);
+
+  --color-toast-success-bg: var(--toast-success-bg);
+  --color-toast-success-border: var(--toast-success-border);
+  --color-toast-success-text: var(--toast-success-text);
+  --color-toast-error-bg: var(--toast-error-bg);
+  --color-toast-error-border: var(--toast-error-border);
+  --color-toast-error-text: var(--toast-error-text);
+  --color-toast-info-bg: var(--toast-info-bg);
+  --color-toast-info-border: var(--toast-info-border);
+  --color-toast-info-text: var(--toast-info-text);
+
+  --color-status-awaiting-bg: var(--status-awaiting-bg);
+  --color-status-awaiting-text: var(--status-awaiting-text);
+  --color-status-inprogress-bg: var(--status-inprogress-bg);
+  --color-status-inprogress-text: var(--status-inprogress-text);
+  --color-status-approved-bg: var(--status-approved-bg);
+  --color-status-approved-text: var(--status-approved-text);
+  --color-status-rejected-bg: var(--status-rejected-bg);
+  --color-status-rejected-text: var(--status-rejected-text);
+  --color-status-neutral-bg: var(--status-neutral-bg);
+  --color-status-neutral-text: var(--status-neutral-text);
+
+  --color-table-header-bg: var(--table-header-bg);
+  --color-table-header-text: var(--table-header-text);
+  --color-table-row-border: var(--table-row-border);
+  --color-table-row-bg-hover: var(--table-row-bg-hover);
+  --color-table-cell-text: var(--table-cell-text);
+
+  --color-notification-bg-unread: var(--notification-bg-unread);
+  --color-notification-bg-read: var(--notification-bg-read);
+  --color-notification-border: var(--notification-border);
+  --color-notification-title: var(--notification-title);
+  --color-notification-body: var(--notification-body);
+  --color-notification-timestamp: var(--notification-timestamp);
+  --color-notification-dot-unread: var(--notification-dot-unread);
 }
+
+
+
