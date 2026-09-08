@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./toast.overrides.css";
 import ToastContainerProvider from "../providers/ToastContainerProvider";
-
+import AuthContextProvider from "../providers/AuthContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +27,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ToastContainerProvider>{children}</ToastContainerProvider>
+        <AuthContextProvider>
+          <ToastContainerProvider>{children}</ToastContainerProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );
