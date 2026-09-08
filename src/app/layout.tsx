@@ -4,6 +4,7 @@ import "./globals.css";
 import "./toast.overrides.css";
 import ToastContainerProvider from "../providers/ToastContainerProvider";
 import AuthContextProvider from "../providers/AuthContextProvider";
+import QueryClientProviderJsx from "../providers/QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <AuthContextProvider>
-          <ToastContainerProvider>{children}</ToastContainerProvider>
+          <QueryClientProviderJsx>
+            <ToastContainerProvider>{children}</ToastContainerProvider>
+          </QueryClientProviderJsx>
         </AuthContextProvider>
       </body>
     </html>
