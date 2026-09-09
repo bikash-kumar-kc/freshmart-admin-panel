@@ -1,8 +1,27 @@
-import { IProps } from "@/src/types/props.type";
-import React from "react";
+import TopStrip from "@/components/components/Tooltip";
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/components/ui/sidebar";
+import { TooltipProvider } from "@/components/components/ui/tooltip";
+import AppSidebar from "@/components/Sidebar";
+import type { ReactNode } from "react";
 
-const ProtectedLayout = ({ children }: IProps) => {
-  return <div>{children}</div>;
-};
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  // TODO: wire to real unread-count query once notifications resource is built for admin
+  const unreadCount = 3; // demo value for now
 
-export default ProtectedLayout;
+  return (
+    <SidebarProvider>
+      <TooltipProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <TopStrip unreadCount={unreadCount} />
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200">
+            {children}
+          </div>
+        </SidebarInset>
+      </TooltipProvider>
+    </SidebarProvider>
+  );
+}
