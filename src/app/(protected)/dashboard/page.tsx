@@ -1,11 +1,34 @@
+"use client";
+import KpiCard from "@/components/dashboard/KpiCard";
+import { kpiCardConfigs } from "@/lib/constants/dashboard/kpiCardConfigs";
+import { useDashboardKpisQuery } from "@/lib/hooks/useDashboardKpi";
+import Motion from "@/lib/motion/motion";
 import React from "react";
 
-const page = () => {
+const Page = () => {
+  const { data: kpis } = useDashboardKpisQuery();
+  if (!kpis) {
+    return (
+      <div>
+        <p>no kpi data...</p>
+      </div>
+    );
+  }
   return (
     <div className="text-app-foreground">
-      <p>this is dashboard...</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {kpiCardConfigs.map((config) => {
+          const data = kpis.find((k) => k.kpi_card_name === config.key);
+          if (!data) return null;
+          return (
+            <Motion key={config.key}>
+              <KpiCard config={config} data={data} />
+            </Motion>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
