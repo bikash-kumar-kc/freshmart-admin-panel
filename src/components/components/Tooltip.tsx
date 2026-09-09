@@ -2,12 +2,15 @@ import { Bell } from "lucide-react";
 import { SidebarTrigger } from "./ui/sidebar";
 import { useRouter } from "next/navigation";
 
-
-export default function TopStrip({ unreadCount = 0 }: { unreadCount?: number }) {
+export default function TopStrip({
+  unreadCount = 0,
+}: {
+  unreadCount?: number;
+}) {
   const router = useRouter();
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-b border-app-border">
+    <div className=" w-full flex items-center justify-between px-4 py-3 border-b border-app-border bg-app-background text-app-foreground absolute">
       <SidebarTrigger />
 
       <button
