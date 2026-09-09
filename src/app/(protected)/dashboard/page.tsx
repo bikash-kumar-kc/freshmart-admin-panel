@@ -2,7 +2,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div>
+    <div className="text-app-foreground">
       <p>this is dashboard...</p>
     </div>
   );
