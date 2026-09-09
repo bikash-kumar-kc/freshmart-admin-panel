@@ -7,20 +7,20 @@ import ToastContainerProvider from "../providers/ToastContainerProvider";
 import AuthContextProvider from "../providers/AuthContextProvider";
 import QueryClientProviderJsx from "../providers/QueryClientProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
   variable: "--font-fira-sans",
-  weight: [ "400"],
+  weight: [ "300"],
 });
 
 export const metadata: Metadata = {
