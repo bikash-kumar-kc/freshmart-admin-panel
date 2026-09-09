@@ -8,7 +8,7 @@ interface IProps {
 
 const ToastContainerProvider = ({ children }: IProps) => {
   return (
-    <div className="min-h-screen w-full  flex justify-center items-center bg-app-background text-app-foreground m-auto">
+    <div className="min-h-screen w-full  flex justify-center items-center bg-app-background text-app-foreground">
       {children}
       <ToastContainer
         position="bottom-right"
