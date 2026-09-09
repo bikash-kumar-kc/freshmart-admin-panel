@@ -10,7 +10,7 @@ export interface INavItem {
 export const navItems: INavItem[] = [
   {
     label: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     icon: LayoutDashboard,
   },
   {
