@@ -1,6 +1,7 @@
 "use client";
-import { useAuthContext } from "@/src/providers/AuthContextProvider";
-import { IProps } from "@/src/types/props.type";
+
+import { useAuthContext } from "@/providers/AuthContextProvider";
+import { IProps } from "@/types/props.type";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
