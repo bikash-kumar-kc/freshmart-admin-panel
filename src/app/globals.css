@@ -329,6 +329,7 @@
 
 /* mapping to tailwind utility class... */
 @theme inline {
+  --font-sans: var(--font-fira-sans);
   --color-brand-primary: var(--brand-primary);
   --color-brand-primary-soft: var(--brand-primary-soft);
   --color-brand-cta: var(--brand-cta);
@@ -513,4 +514,8 @@
   html {
     @apply font-sans;
   }
+}
+
+body {
+  font-family: var(--font-fira-sans);
 }
