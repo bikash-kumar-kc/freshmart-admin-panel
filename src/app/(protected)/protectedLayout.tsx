@@ -16,10 +16,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <TooltipProvider>
         <AppSidebar />
         <SidebarInset>
-          <TopStrip unreadCount={unreadCount} />
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200">
-            {children}
+          <div className="relative">
+            <TopStrip unreadCount={unreadCount} />
           </div>
+          <main className=" min-h-screen  w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200 bg-app-background! text-app-muted-foreground!">
+            {children}
+          </main>
         </SidebarInset>
       </TooltipProvider>
     </SidebarProvider>
