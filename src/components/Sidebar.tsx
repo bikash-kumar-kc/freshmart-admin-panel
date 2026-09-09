@@ -24,9 +24,19 @@ import {
   DropdownMenuTrigger,
   DropdownMenu,
 } from "./components/ui/dropdown-menu";
+import {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarImage,
+} from "./components/ui/avatar";
+
+export const resueableButtonCss =
+  "hover:bg-[#262626] hover:text-button-secondary-text rounded-0! w-full py-5 text-[16px] tracking-wider rounded-0! data-[active=true]:bg-button-secondary-bg data-[active=true]:text-button-secondary-text active:bg-transparent active:scale-100 active:text-button-secondary-text px-2 py-5 rounded-sm";
 
 export default function AppSidebar() {
   const location = usePathname();
+
   const router = useRouter();
   const { user } = useAuthContext();
   const logoutMutation = useLogoutMutation();
@@ -43,20 +53,20 @@ export default function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 py-1">
-          <div className="w-8 h-8 rounded-sm bg-brand-primary flex items-center justify-center text-white shrink-0">
+    <Sidebar collapsible="icon" className="border-app-border ">
+      <SidebarHeader className="bg-app-background text-app-foreground">
+        <div className="flex items-center gap-2 py-2">
+          <div className="w-5 h-5 rounded-sm bg-brand-primary flex items-center justify-center text-white shrink-0">
             <Leaf size={16} />
           </div>
-          <span className="font-semibold text-app-foreground tracking-tight text-sm group-data-[collapsible=icon]:hidden">
+          <span className="font-semibold text-app-foreground tracking-wider text-sm group-data-[collapsible=icon]:hidden ">
             FRESHMART
           </span>
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
-        <SidebarMenu>
+      <SidebarContent className="bg-app-background text-app-foreground">
+        <SidebarMenu className="flex flex-col gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const hasChildren = !!item.children?.length;
@@ -71,6 +81,7 @@ export default function AppSidebar() {
                     asChild
                     isActive={isParentActive}
                     tooltip={item.label}
+                    className={`${resueableButtonCss}`}
                   >
                     <Link href={item.path}>
                       <Icon />
@@ -89,6 +100,7 @@ export default function AppSidebar() {
                   isActive={isParentActive}
                   tooltip={item.label}
                   onClick={() => setOpenSubmenu(isOpen ? null : item.label)}
+                  className={`${resueableButtonCss}`}
                 >
                   <Icon />
                   <span>{item.label}</span>
@@ -105,9 +117,12 @@ export default function AppSidebar() {
                         <SidebarMenuSubButton
                           asChild
                           isActive={location === child.path}
+                          className={`${resueableButtonCss}`}
                         >
                           <Link href={child.path}>
-                            <span>{child.label}</span>
+                            <span className="text-button-secondary-text">
+                              {child.label}
+                            </span>
                           </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
@@ -120,28 +135,54 @@ export default function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="bg-app-background text-app-foreground">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2.5 w-full px-2 py-2 rounded-sm hover:bg-sidebar-bg-hover transition-colors">
+            <button className="flex items-center gap-2.5 w-full  py-2 rounded-sm hover:bg-sidebar-bg-hover transition-colors">
               <div className="w-8 h-8 rounded-full bg-brand-primary-soft text-brand-primary flex items-center justify-center text-xs font-semibold shrink-0">
-                {user?.email?.[0]?.toUpperCase() ?? "A"}
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>
+                    {user?.email?.[0]?.toUpperCase() ?? "A"}
+                  </AvatarFallback>
+                  <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+                </Avatar>
               </div>
-              <span className="text-xs font-medium text-app-foreground truncate group-data-[collapsible=icon]:hidden">
+              <span className="text-[15px] font-medium text-app-foreground truncate group-data-[collapsible=icon]:hidden">
                 {user?.email ?? "Admin"}
               </span>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent side="top" align="start" className="w-56">
-            <div className="px-2 py-1.5">
-              <p className="text-xs font-medium text-app-foreground truncate">
-                {user?.email}
-              </p>
-              <p className="text-[11px] text-app-muted-foreground">Admin</p>
+          <DropdownMenuContent
+            side="top"
+            align="start"
+            className="w-56 bg-app-background border-app-border flex flex-col gap-2"
+          >
+            <div className="flex gap-2 items-center">
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>
+                  {user?.email?.[0]?.toUpperCase() ?? "A"}
+                </AvatarFallback>
+                <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+              </Avatar>
+              <div className="px-2 py-1.5">
+                <p className="text-[15px] font-medium text-app-foreground truncate">
+                  {user?.email}
+                </p>
+                <p className="text-[11px] text-app-muted-foreground">Admin</p>
+              </div>
             </div>
+
             <DropdownMenuItem
               onClick={handleLogout}
-              className="text-red-500 focus:text-red-500"
+              className="px-2 py-2 bg-button-destructive-bg  text-button-destructive-text rounded-sm active:bg-transparent active:scale-100  focus:bg-button-destructive-bg-hover focus:text-button-destructive-text"
             >
               <LogOut size={14} className="mr-2" />
               Logout
