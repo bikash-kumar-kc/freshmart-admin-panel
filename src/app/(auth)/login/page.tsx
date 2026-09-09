@@ -1,11 +1,9 @@
 "use client";
-import { showToast } from "@/src/components/Toast";
-import { useLogin } from "@/src/lib/hooks/useLogin";
-import { useAuthContext } from "@/src/providers/AuthContextProvider";
-import {
-  ILoginType,
-  schemaForSession,
-} from "@/src/validation/zod-schema-validation/login.schema.validation";
+
+import { showToast } from "@/components/Toast";
+import { useLogin } from "@/lib/hooks/useLogin";
+import { useAuthContext } from "@/providers/AuthContextProvider";
+import { ILoginType, schemaForSession } from "@/validation/zod-schema-validation/login.schema.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
