@@ -20,6 +20,10 @@ class AuthServices {
     );
     return data;
   };
+
+  logout = async()=>{
+    
+  }
 }
 
 const authservice = new AuthServices();
