@@ -182,9 +182,9 @@ export default function AppSidebar() {
 
             <DropdownMenuItem
               onClick={handleLogout}
-              className="px-2 py-2 bg-button-destructive-bg  text-button-destructive-text rounded-sm active:bg-transparent active:scale-100  focus:bg-button-destructive-bg-hover focus:text-button-destructive-text"
+              className="group px-2 py-2 bg-button-destructive-bg  text-button-destructive-text rounded-sm active:bg-transparent active:scale-100  focus:bg-button-destructive-bg-hover focus:text-button-destructive-text "
             >
-              <LogOut size={14} className="mr-2" />
+              <LogOut size={14} className="mr-2 focus:text-button-destructive-text "/>
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
