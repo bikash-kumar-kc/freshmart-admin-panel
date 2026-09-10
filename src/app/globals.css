@@ -197,6 +197,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
 
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* sales overview area chart */
+  --chart-earning: #3b6d11;
+  --chart-earning-fill: rgba(59, 109, 17, 0.15);
+  --chart-expenditure: #dc2626;
+  --chart-expenditure-fill: rgba(220, 38, 38, 0.15);
 }
 
 /* on dark theme */
@@ -324,6 +330,12 @@
     --app-shadow-card-lg:
       0 10px 15px -3px rgb(255 255 255 / 0.1),
       0 4px 6px -4px rgb(255 255 255 / 0.1);
+
+    /* sales overview area chart */
+    --chart-earning: #6dc93f;
+    --chart-earning-fill: rgba(109, 201, 63, 0.18);
+    --chart-expenditure: #f87171;
+    --chart-expenditure-fill: rgba(248, 113, 113, 0.18);
   }
 }
 
@@ -464,6 +476,10 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* mapping for sales overview chart */
+  --color-chart-earning: var(--chart-earning);
+  --color-chart-expenditure: var(--chart-expenditure);
 }
 /*
   ---break---
