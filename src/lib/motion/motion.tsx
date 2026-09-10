@@ -1,7 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const Motion = ({ children }: { children: React.ReactNode }) => {
+const Motion = ({
+  delay = 0,
+  children,
+}: {
+  delay?: number;
+  children: React.ReactNode;
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -9,6 +15,7 @@ const Motion = ({ children }: { children: React.ReactNode }) => {
       transition={{
         duration: 0.6,
         ease: "easeOut",
+        delay: delay,
       }}
     >
       {children}
