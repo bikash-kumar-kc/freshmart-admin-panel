@@ -24,7 +24,7 @@ import {
 } from "../components/ui/select";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
-const selectItemClass =
+export const selectItemClass =
   "relative cursor-pointer rounded-sm py-2 pl-8 pr-3 text-sm text-gray-700 transition-colors " +
   "data-[highlighted]:bg-[#262626] data-[highlighted]:!text-white text-button-secondary-text " +
   "data-[state=checked]:bg-button-secondary-bg data-[state=checked]:text-button-secondary-text  data-[state=checked]:font-medium";
