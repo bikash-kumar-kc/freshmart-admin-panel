@@ -1,10 +1,10 @@
 "use client";
 import KpiCard from "@/components/dashboard/KpiCard";
 import SalesOverviewChart from "@/components/dashboard/SalesOverviewChart";
+import TopProductsSection from "@/components/dashboard/TopProductSection";
 import { kpiCardConfigs } from "@/lib/constants/dashboard/kpiCardConfigs";
 import { useDashboardKpisQuery } from "@/lib/hooks/useDashboardKpi";
 import Motion from "@/lib/motion/motion";
-import React from "react";
 
 const Page = () => {
   const { data: kpis } = useDashboardKpisQuery();
@@ -31,6 +31,11 @@ const Page = () => {
       <div>
         <Motion delay={0.25}>
           <SalesOverviewChart />
+        </Motion>
+      </div>
+      <div>
+        <Motion delay={0.5}>
+          <TopProductsSection />
         </Motion>
       </div>
     </div>
