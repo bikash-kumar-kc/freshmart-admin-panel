@@ -534,4 +534,23 @@
 
 body {
   font-family: var(--font-fira-sans);
+  background:var(--app-background);
+  color: var(--app-foreground);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
