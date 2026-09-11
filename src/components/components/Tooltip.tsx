@@ -10,16 +10,17 @@ export default function TopStrip({
   const router = useRouter();
 
   return (
-    <div className=" w-full flex items-center justify-between px-4 py-3 border-b border-app-border bg-app-background text-app-foreground absolute">
+    <div className="absolute inset-x-0 top-0 z-50 flex h-12 w-full items-center justify-between border-b border-app-border bg-app-background px-4 text-app-foreground">
       <SidebarTrigger />
 
       <button
         onClick={() => router.push("/notifications")}
-        className="relative p-2 rounded-sm hover:bg-sidebar-bg-hover transition-colors"
+        className="relative rounded-sm p-2 transition-colors hover:bg-sidebar-bg-hover"
       >
         <Bell size={18} className="text-app-foreground" />
+
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 bg-brand-cta text-white text-[10px] font-semibold rounded-full min-w-[16px] h-4 flex items-center justify-center px-1">
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand-cta px-1 text-[10px] font-semibold text-white">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
