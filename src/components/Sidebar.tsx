@@ -156,7 +156,7 @@ export default function AppSidebar() {
               </span>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent
+          {/* <DropdownMenuContent
             side="top"
             align="start"
             className="w-56 bg-app-background border-app-border flex flex-col gap-2"
@@ -184,7 +184,37 @@ export default function AppSidebar() {
               onClick={handleLogout}
               className="group px-2 py-2 bg-button-destructive-bg  text-button-destructive-text rounded-sm active:bg-transparent active:scale-100  focus:bg-button-destructive-bg-hover focus:text-button-destructive-text "
             >
-              <LogOut size={14} className="mr-2 focus:text-button-destructive-text "/>
+              <LogOut
+                size={14}
+                className="mr-2 focus:text-button-destructive-text "
+              />
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent> */}
+          <DropdownMenuContent side="top" align="start" className="w-56 bg-app-background border-app-border flex flex-col gap-2">
+            <div className="flex gap-2 items-center">
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>
+                  {user?.email?.[0]?.toUpperCase() ?? "A"}
+                </AvatarFallback>
+                <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+              </Avatar>
+              <div className="px-2 py-1.5">
+                <p className="text-[15px] font-medium text-app-foreground truncate">
+                  {user?.email}
+                </p>
+                <p className="text-[11px] text-app-muted-foreground">Admin</p>
+              </div>
+            </div>
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="rounded-sm text-status-rejected-text focus:bg-status-rejected-bg focus:text-status-rejected-text"
+            >
+              <LogOut size={14} className="mr-2" />
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
