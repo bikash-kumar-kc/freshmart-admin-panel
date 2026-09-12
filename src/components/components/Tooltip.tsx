@@ -10,7 +10,7 @@ export default function TopStrip({
   const router = useRouter();
 
   return (
-    <div className="absolute inset-x-0 top-0 z-50 flex h-12 w-full items-center justify-between border-b border-app-border bg-app-background px-4 text-app-foreground">
+    <div className="sticky top-0 z-50 flex h-12 w-full items-center justify-between border-b border-app-border bg-app-background px-4 text-app-foreground">
       <SidebarTrigger />
 
       <button

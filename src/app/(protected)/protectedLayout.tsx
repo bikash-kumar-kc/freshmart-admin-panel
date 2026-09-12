@@ -16,11 +16,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <TooltipProvider>
         <AppSidebar />
         <SidebarInset>
-         <div className="relative bg-app-background ">
-           <TopStrip unreadCount={unreadCount} />
-         </div>
+          <TopStrip unreadCount={unreadCount} />
 
-          <main className=" min-h-screen  w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200 bg-app-background! text-app-muted-foreground! mt-12">
+          <main className=" min-h-screen  w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200 bg-app-background! text-app-muted-foreground!">
             {children}
           </main>
         </SidebarInset>
