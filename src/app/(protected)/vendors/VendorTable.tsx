@@ -108,9 +108,9 @@ export default function VendorsTable({
               e.stopPropagation();
               router.push(`/vendors/${vendor.farmId}`);
             }}
-            className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-green-600 bg-green-50 transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
+            className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-app-foreground bg-app-background transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
           >
-            View details
+             Details
           </button>
         </td>
         <td className="px-4 py-3 text-right">
