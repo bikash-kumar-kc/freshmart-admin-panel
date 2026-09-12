@@ -7,6 +7,8 @@ import { selectItemClass } from "./dashboard/SalesOverviewChart";
 
 const ROW_OPTIONS = [5, 10, 20, 100];
 
+export const hoverBackgroundColor= 'hover:bg-[#262626] hover:text-app-foreground'
+
 interface VendorPaginationProps {
   page: number;
   pageSize: number;
@@ -49,8 +51,8 @@ export default function VendorPagination({
   const pageButtonClass = (isActive: boolean) =>
     `w-8 h-8 flex items-center justify-center text-xs font-medium rounded-sm transition-colors ${
       isActive
-        ? "border border-brand-primary bg-brand-primary-soft text-brand-primary"
-        : "text-app-foreground hover:bg-menu-item-hover-bg"
+        ? "border border-app-border  text-brand-primary"+`${hoverBackgroundColor} bg-[#262626]`
+        : `${hoverBackgroundColor}`
     }`;
 
   return (
@@ -107,8 +109,7 @@ export default function VendorPagination({
           <button
             disabled={page === 1}
             onClick={() => onPageChange(page - 1)}
-            className="disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground hover:bg-menu-item-hover-bg"
-          >
+ className={`${hoverBackgroundColor}disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground `}          >
             Prev
           </button>
 
@@ -134,7 +135,7 @@ export default function VendorPagination({
           <button
             disabled={page === totalPages}
             onClick={() => onPageChange(page + 1)}
-            className="disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground hover:bg-menu-item-hover-bg"
+            className={`${hoverBackgroundColor}disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground `}
           >
             Next
           </button>
