@@ -110,7 +110,7 @@ export default function VendorsTable({
             }}
             className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-app-foreground bg-app-background transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
           >
-             Details
+            Details
           </button>
         </td>
         <td className="px-4 py-3 text-right">
@@ -169,22 +169,22 @@ export default function VendorsTable({
         open={!!pendingAction}
         onOpenChange={(open) => !open && setPendingAction(null)}
       >
-        <AlertDialogContent className="rounded-sm">
+        <AlertDialogContent className="rounded-sm bg-app-background border-app-border text-white">
           <AlertDialogHeader>
             <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="hover:text-app-foreground">
               {pendingAction?.confirmMessage}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
+          <AlertDialogFooter className=" bg-app-background border-app-border text-app-foreground">
+            <AlertDialogCancel disabled={isRunning} >Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
               className={
                 pendingAction?.variant === "destructive"
                   ? "bg-button-destructive-bg hover:bg-button-destructive-bg-hover text-button-destructive-text"
-                  : ""
+                  : "bg-button-primary-bg hover:bg-button-primary-bg-hover"
               }
             >
               {isRunning ? "Please wait..." : "Confirm"}
