@@ -156,7 +156,7 @@ export default function AppSidebar() {
               </span>
             </button>
           </DropdownMenuTrigger>
-          {/* <DropdownMenuContent
+          <DropdownMenuContent
             side="top"
             align="start"
             className="w-56 bg-app-background border-app-border flex flex-col gap-2"
@@ -182,16 +182,16 @@ export default function AppSidebar() {
 
             <DropdownMenuItem
               onClick={handleLogout}
-              className="group px-2 py-2 bg-button-destructive-bg  text-button-destructive-text rounded-sm active:bg-transparent active:scale-100  focus:bg-button-destructive-bg-hover focus:text-button-destructive-text "
+              className="group rounded-sm bg-button-destructive-bg px-2 py-2 text-button-destructive-text focus:bg-button-destructive-bg-hover focus:text-button-destructive-text"
             >
               <LogOut
                 size={14}
-                className="mr-2 focus:text-button-destructive-text "
+                className="mr-2 text-button-destructive-text group-data-[highlighted]:text-white"
               />
               Logout
             </DropdownMenuItem>
-          </DropdownMenuContent> */}
-          <DropdownMenuContent side="top" align="start" className="w-56 bg-app-background border-app-border flex flex-col gap-2">
+          </DropdownMenuContent>
+          {/* <DropdownMenuContent side="top" align="start" className="w-56 bg-app-background border-app-border flex flex-col gap-2">
             <div className="flex gap-2 items-center">
               <Avatar>
                 <AvatarImage
@@ -217,7 +217,7 @@ export default function AppSidebar() {
               <LogOut size={14} className="mr-2" />
               Logout
             </DropdownMenuItem>
-          </DropdownMenuContent>
+          </DropdownMenuContent> */}
         </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
