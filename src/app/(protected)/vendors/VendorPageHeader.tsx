@@ -36,7 +36,10 @@ export default function VendorPageHeader({
 
   return (
     <div className="space-y-4 mb-4">
-      <h1 className="text-xl font-semibold text-app-foreground">Vendors</h1>
+      <div>
+        <h1 className="text-xl font-semibold text-app-foreground">Vendors</h1>
+        <p className="text-[10px]   font-semibold text-app-muted-foreground">Manages your vendors.</p>
+      </div>
 
       <div className="flex items-center gap-2 justify-between">
         {/* Mobile search */}
