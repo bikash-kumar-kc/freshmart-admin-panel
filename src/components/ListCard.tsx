@@ -12,6 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/components/ui/alert-dialog";
+import { appPrimaryColorOption } from "@/app/(protected)/vendors/VendorPageHeader";
 
 export interface IListCardAction {
   actionName: string;
@@ -42,8 +43,17 @@ const statusColors: Record<IListCardStatus["variant"], string> = {
   neutral: "bg-status-neutral-bg text-status-neutral-text",
 };
 
-export function ListCard({ title, status, facts, meta, onClick, actions }: IListCardProps) {
-  const [pendingAction, setPendingAction] = useState<IListCardAction | null>(null);
+export function ListCard({
+  title,
+  status,
+  facts,
+  meta,
+  onClick,
+  actions,
+}: IListCardProps) {
+  const [pendingAction, setPendingAction] = useState<IListCardAction | null>(
+    null,
+  );
   const [isRunning, setIsRunning] = useState(false);
 
   function handleActionClick(e: React.MouseEvent, action: IListCardAction) {
@@ -73,7 +83,9 @@ export function ListCard({ title, status, facts, meta, onClick, actions }: IList
         className="border border-app-border rounded-sm p-4 bg-statcard-background active:bg-table-row-bg-hover transition-colors cursor-pointer"
       >
         <div className="flex items-start justify-between gap-2">
-          <p className="text-sm font-semibold text-app-foreground truncate">{title}</p>
+          <p className="text-sm font-semibold text-app-foreground truncate">
+            {title}
+          </p>
           {status && (
             <span
               className={`text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0 ${statusColors[status.variant]}`}
@@ -84,10 +96,14 @@ export function ListCard({ title, status, facts, meta, onClick, actions }: IList
         </div>
 
         {facts.length > 0 && (
-          <p className="text-sm text-app-foreground/80 mt-1">{facts.join(" · ")}</p>
+          <p className="text-sm text-app-foreground/80 mt-1">
+            {facts.join(" · ")}
+          </p>
         )}
 
-        {meta && <p className="text-xs text-app-muted-foreground mt-1.5">{meta}</p>}
+        {meta && (
+          <p className="text-xs text-app-muted-foreground mt-1.5">{meta}</p>
+        )}
 
         {actions && actions.length > 0 && (
           <div className="mt-3 flex justify-end gap-2">
@@ -95,10 +111,10 @@ export function ListCard({ title, status, facts, meta, onClick, actions }: IList
               <button
                 key={action.actionName}
                 onClick={(e) => handleActionClick(e, action)}
-                className={`text-xs font-medium px-3 py-1.5 rounded-sm transition-colors ${
+                className={`text-xs font-medium px-3 py-1.5 rounded-sm transition-colors border-app-border ${
                   action.variant === "destructive"
-                    ? "text-status-rejected-text hover:bg-status-rejected-bg"
-                    : "text-brand-primary hover:bg-brand-primary-soft"
+                    ? "bg-button-destructive-bg hover:bg-button-destructive-bg-hover text-button-destructive-text"
+                    : "text-app-foreground bg-brand-primary hover:bg-brand-primary-soft"
                 }`}
               >
                 {action.actionName}
@@ -108,21 +124,34 @@ export function ListCard({ title, status, facts, meta, onClick, actions }: IList
         )}
       </div>
 
-      <AlertDialog open={!!pendingAction} onOpenChange={(open) => !open && setPendingAction(null)}>
-        <AlertDialogContent className="rounded-sm" onClick={(e) => e.stopPropagation()}>
+      <AlertDialog
+        open={!!pendingAction}
+        onOpenChange={(open) => !open && setPendingAction(null)}
+      >
+        <AlertDialogContent
+          className={`rounded-sm ${appPrimaryColorOption}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>{pendingAction?.confirmMessage}</AlertDialogDescription>
+            <AlertDialogDescription className="hover:text-app-foreground transition-colors">
+              {pendingAction?.confirmMessage}
+            </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
+          <AlertDialogFooter className={` ${appPrimaryColorOption}`}>
+            <AlertDialogCancel
+              disabled={isRunning}
+              className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
               className={
                 pendingAction?.variant === "destructive"
                   ? "bg-button-destructive-bg hover:bg-button-destructive-bg-hover text-button-destructive-text"
-                  : ""
+                  : "bg-button-primary-bg hover:bg-button-primary-bg-hover"
               }
             >
               {isRunning ? "Please wait..." : "Confirm"}
