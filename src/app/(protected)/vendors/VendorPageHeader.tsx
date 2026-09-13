@@ -13,7 +13,8 @@ import {
 import { VendorStatus } from "@/types/vendors/vendorList.types";
 import { selectItemClass } from "@/components/dashboard/SalesOverviewChart";
 
-export const appPrimaryColorOption='bg-app-background text-app-foreground border-app-border'
+export const appPrimaryColorOption =
+  "bg-app-background text-app-foreground border-app-border";
 
 interface VendorPageHeaderProps {
   onSearchChange: (value: string) => void;
@@ -38,7 +39,9 @@ export default function VendorPageHeader({
     <div className="space-y-4 mb-4">
       <div>
         <h1 className="text-xl font-semibold text-app-foreground">Vendors</h1>
-        <p className="text-[10px]   font-semibold text-app-muted-foreground">Manages your vendors.</p>
+        <p className="text-[10px]   font-semibold text-app-muted-foreground">
+          Manages your vendors.
+        </p>
       </div>
 
       <div className="flex items-center gap-2 justify-between">
@@ -67,7 +70,10 @@ export default function VendorPageHeader({
 
         {/* Desktop search */}
         <div className="hidden md:block relative w-72">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-app-muted-foreground" />
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-app-muted-foreground"
+          />
           <input
             value={query}
             onChange={(e) => updateQuery(e.target.value)}
@@ -77,15 +83,29 @@ export default function VendorPageHeader({
         </div>
 
         {/* Filter — same dropdown on every screen size */}
-        <Select value={statusFilter} onValueChange={(v) => onStatusFilterChange(v as VendorStatus | "all")}>
+        <Select
+          value={statusFilter}
+          onValueChange={(v) => onStatusFilterChange(v as VendorStatus | "all")}
+        >
           <SelectTrigger className="w-36 shrink-0 border-app-border hover:text-app-foreground transition-colors">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className={appPrimaryColorOption}>
-            <SelectItem value="all" className={selectItemClass}>All statuses</SelectItem>
-            <SelectItem value="approved" className={`${selectItemClass} mt-2`}>Approved</SelectItem>
-            <SelectItem value="unapproved" className={`${selectItemClass} mt-2`}>Unapproved</SelectItem>
-            <SelectItem value="deleted" className={`${selectItemClass} mt-2`}>Deleted</SelectItem>
+            <SelectItem value="all" className={selectItemClass}>
+              All statuses
+            </SelectItem>
+            <SelectItem value="approved" className={`${selectItemClass} mt-2`}>
+              Approved
+            </SelectItem>
+            <SelectItem
+              value="unapproved"
+              className={`${selectItemClass} mt-2`}
+            >
+              Unapproved
+            </SelectItem>
+            <SelectItem value="deleted" className={`${selectItemClass} mt-2`}>
+              Deleted
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
