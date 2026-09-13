@@ -177,7 +177,7 @@ export default function VendorsTable({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className=" bg-app-background border-app-border text-app-foreground">
-            <AlertDialogCancel disabled={isRunning} >Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isRunning} className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors" >Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
