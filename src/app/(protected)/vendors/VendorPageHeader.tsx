@@ -3,13 +3,6 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/components/ui/select";
 import { VendorStatus } from "@/types/vendors/vendorList.types";
 import { selectItemClass } from "@/components/dashboard/SalesOverviewChart";
 import ReuseableSelect from "@/components/ReuseableSelect";
