@@ -12,6 +12,7 @@ import {
 } from "@/components/components/ui/select";
 import { VendorStatus } from "@/types/vendors/vendorList.types";
 import { selectItemClass } from "@/components/dashboard/SalesOverviewChart";
+import ReuseableSelect from "@/components/ReuseableSelect";
 
 export const appPrimaryColorOption =
   "bg-app-background text-app-foreground border-app-border";
@@ -68,7 +69,7 @@ export default function VendorPageHeader({
           )}
         </div>
 
-        {/* Desktop search */}
+        
         <div className="hidden md:block relative w-72">
           <Search
             size={16}
@@ -82,32 +83,46 @@ export default function VendorPageHeader({
           />
         </div>
 
-        {/* Filter — same dropdown on every screen size */}
-        <Select
-          value={statusFilter}
-          onValueChange={(v) => onStatusFilterChange(v as VendorStatus | "all")}
-        >
-          <SelectTrigger className="w-36 shrink-0 border-app-border hover:text-app-foreground transition-colors">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent className={appPrimaryColorOption}>
-            <SelectItem value="all" className={selectItemClass}>
-              All statuses
-            </SelectItem>
-            <SelectItem value="approved" className={`${selectItemClass} mt-2`}>
-              Approved
-            </SelectItem>
-            <SelectItem
-              value="unapproved"
-              className={`${selectItemClass} mt-2`}
-            >
-              Unapproved
-            </SelectItem>
-            <SelectItem value="deleted" className={`${selectItemClass} mt-2`}>
-              Deleted
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        
+        <ReuseableSelect<VendorStatus | "all">
+          data={{
+            select: {
+              value: statusFilter,
+              onSelectChange: onStatusFilterChange,
+              default: "all",
+            },
+            trigger: {
+              style:
+                "w-36 shrink-0 border-app-border hover:text-app-foreground transition-colors",
+              placeholder: "Status",
+            },
+            content: {
+              style: appPrimaryColorOption,
+              items: [
+                {
+                  name: "All statuses",
+                  value: "all",
+                  style: selectItemClass,
+                },
+                {
+                  name: "Approved",
+                  value: "approved",
+                  style: selectItemClass,
+                },
+                {
+                  name: "Unapproved",
+                  value: "unapproved",
+                  style: selectItemClass,
+                },
+                {
+                  name: "Deleted",
+                  value: "deleted",
+                  style: selectItemClass,
+                },
+              ],
+            },
+          }}
+        />
       </div>
     </div>
   );
