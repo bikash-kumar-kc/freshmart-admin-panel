@@ -2,12 +2,19 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useIsMobile } from "./components/hooks/use-mobile";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./components/ui/select";
 import { selectItemClass } from "./dashboard/SalesOverviewChart";
 
 const ROW_OPTIONS = [5, 10, 20, 100];
 
-export const hoverBackgroundColor= 'hover:bg-[#262626] hover:text-app-foreground'
+export const hoverBackgroundColor =
+  "hover:bg-[#262626] hover:text-app-foreground";
 
 interface VendorPaginationProps {
   page: number;
@@ -51,13 +58,13 @@ export default function VendorPagination({
   const pageButtonClass = (isActive: boolean) =>
     `w-8 h-8 flex items-center justify-center text-xs font-medium rounded-sm transition-colors ${
       isActive
-        ? "border border-app-border  text-brand-primary"+`${hoverBackgroundColor} bg-[#262626]`
+        ? "border border-app-border  text-brand-primary" +
+          `${hoverBackgroundColor} bg-[#262626]`
         : `${hoverBackgroundColor}`
     }`;
 
   return (
     <div className="flex items-center justify-between gap-3 mt-4 flex-wrap">
-      {/* Left: rows per page */}
       <div className="flex items-center gap-2">
         <span className="text-xs text-app-muted-foreground whitespace-nowrap">
           Rows per page
@@ -83,7 +90,6 @@ export default function VendorPagination({
         </Select>
       </div>
 
-      {/* Right: page controls */}
       {isMobile ? (
         <div className="flex items-center gap-3">
           <button
@@ -109,7 +115,8 @@ export default function VendorPagination({
           <button
             disabled={page === 1}
             onClick={() => onPageChange(page - 1)}
- className={`${hoverBackgroundColor}disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground `}          >
+            className={`${hoverBackgroundColor}disabled:opacity-40 text-xs font-medium px-2 py-1.5 rounded-sm text-app-foreground `}
+          >
             Prev
           </button>
 
