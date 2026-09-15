@@ -44,5 +44,5 @@ export function getVendorActions(
     ];
   }
 
-  return []; // deleted — terminal state, no actions
+  return []; 
 }
