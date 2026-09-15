@@ -45,7 +45,7 @@ function getPageNumbers(
   return pages;
 }
 
-export default function VendorPagination({
+export default function Pagination({
   page,
   pageSize,
   total,
