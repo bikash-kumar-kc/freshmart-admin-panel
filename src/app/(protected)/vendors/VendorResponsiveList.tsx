@@ -1,4 +1,4 @@
-// vendors/ResponsiveVendorList.tsx
+
 "use client";
 
 import { useIsMobile } from "@/lib/hooks/useMobileHook";
