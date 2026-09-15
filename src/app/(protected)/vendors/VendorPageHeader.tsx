@@ -1,4 +1,3 @@
-// vendors/VendorPageHeader.tsx
 "use client";
 
 import { useState } from "react";
@@ -6,6 +5,8 @@ import { Search } from "lucide-react";
 import { VendorStatus } from "@/types/vendors/vendorList.types";
 import { selectItemClass } from "@/components/dashboard/SalesOverviewChart";
 import ReuseableSelect from "@/components/ReuseableSelect";
+import SearchComponent from "@/components/SearchComponent";
+import PageHeading from "@/components/PageHeading";
 
 export const appPrimaryColorOption =
   "bg-app-background text-app-foreground border-app-border";
@@ -29,28 +30,29 @@ export default function VendorPageHeader({
     onSearchChange(value);
   }
 
+  function onBlurSearch() {
+    if (!query) setSearchOpen(false);
+  }
+
   return (
     <div className="space-y-4 mb-4">
-      <div>
-        <h1 className="text-xl font-semibold text-app-foreground">Vendors</h1>
-        <p className="text-[10px]   font-semibold text-app-muted-foreground">
-          Manages your vendors.
-        </p>
-      </div>
+      <PageHeading title="Vendors" message="Manage your vendors" />
 
       <div className="flex items-center gap-2 justify-between">
-        {/* Mobile search */}
+        
         <div className="flex md:hidden items-center flex-1">
           {searchOpen ? (
-            <input
-              autoFocus
-              value={query}
-              onChange={(e) => updateQuery(e.target.value)}
-              onBlur={() => {
-                if (!query) setSearchOpen(false);
+            <SearchComponent
+              searchData={{
+                placeholder: "Search by ID or farm name...",
+                value: query,
+                onChange: updateQuery,
+                autofocus: true,
+                onBlur: onBlurSearch,
+                containerSytling: "flex md:hidden items-center flex-1",
+                style:
+                  "flex-1 border border-input-border rounded-sm px-3 py-2 text-sm bg-input-background text-input-text focus:border-input-border-focus outline-none",
               }}
-              placeholder="Search by ID or farm name..."
-              className="flex-1 border border-input-border rounded-sm px-3 py-2 text-sm bg-input-background text-input-text focus:border-input-border-focus outline-none"
             />
           ) : (
             <button
@@ -61,22 +63,15 @@ export default function VendorPageHeader({
             </button>
           )}
         </div>
+        <SearchComponent
+          searchData={{
+            placeholder: "Search by ID or farm name...",
+            value: query,
+            onChange: updateQuery,
+            autofocus: false,
+          }}
+        />
 
-        
-        <div className="hidden md:block relative w-72">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-app-muted-foreground"
-          />
-          <input
-            value={query}
-            onChange={(e) => updateQuery(e.target.value)}
-            placeholder="Search by ID or farm name..."
-            className="w-full pl-9 pr-3 py-2 border border-input-border rounded-sm text-sm bg-input-background text-input-text focus:border-input-border-focus outline-none"
-          />
-        </div>
-
-        
         <ReuseableSelect<VendorStatus | "all">
           data={{
             select: {
