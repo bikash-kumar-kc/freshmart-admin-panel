@@ -1,26 +1,25 @@
-import { MoreVertical } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/components/ui/dropdown-menu";
+import { MoreVertical } from "lucide-react";
 
-type DropdownAction<T> = {
+export type GenericDropdownAction<T> = {
   actionName: string;
-  method: (data: T) => void;
+  method: () => void | Promise<void>;
   variant?: "default" | "destructive";
   confirmMessage?: string;
+  data?: T;
 };
 
 type GenericDropdownProps<T> = {
-  data: T;
-  actions: DropdownAction<T>[];
-  onConfirm?: (action: DropdownAction<T>) => void;
+  actions: GenericDropdownAction<T>[];
+  onConfirm: (action: GenericDropdownAction<T>) => void;
 };
 
 export function GenericDropdown<T>({
-  data,
   actions,
   onConfirm,
 }: GenericDropdownProps<T>) {
@@ -46,9 +45,9 @@ export function GenericDropdown<T>({
               e.stopPropagation();
 
               if (action.confirmMessage) {
-                onConfirm?.(action);
+                onConfirm(action);
               } else {
-                action.method(data);
+                action.method();
               }
             }}
             className={
