@@ -1,14 +1,16 @@
-// app/vendors/page.tsx
 "use client";
 
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { VendorStatus } from "@/types/vendors/vendorList.types";
-import { useVendorListQuery, vendorKeys } from "@/lib/hooks/vendor/vendorList.queries";
+import {
+  useVendorListQuery,
+  vendorKeys,
+} from "@/lib/hooks/vendor/vendorList.queries";
 import VendorPageHeader from "./VendorPageHeader";
 import ResponsiveVendorList from "./VendorResponsiveList";
-import VendorPagination from "@/components/Pagination";
 
+import Pagination from "@/components/Pagination";
 
 export default function VendorsPage() {
   const [search, setSearch] = useState("");
@@ -18,7 +20,12 @@ export default function VendorsPage() {
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useVendorListQuery({ search, status, page, pageSize });
+  const { data, isLoading } = useVendorListQuery({
+    search,
+    status,
+    page,
+    pageSize,
+  });
 
   const isSearching = search.trim().length > 0;
 
@@ -40,7 +47,7 @@ export default function VendorsPage() {
   }
 
   return (
-    <div className="bg-statcard-background border border-statcard-border rounded-md p-3 shadow-lg min-w-[180px]">
+    <div className="bg-statcard-background border border-statcard-border rounded-md p-3 shadow-lg min-w-45">
       <VendorPageHeader
         onSearchChange={(value) => {
           setSearch(value);
@@ -62,7 +69,7 @@ export default function VendorsPage() {
       />
 
       {!isSearching && data && (
-        <VendorPagination
+        <Pagination
           page={page}
           pageSize={pageSize}
           total={data.total}
