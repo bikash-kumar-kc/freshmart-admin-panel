@@ -24,6 +24,7 @@ import { IVendorListItem } from "@/types/vendors/vendorList.types";
 import { getVendorActions, IVendorAction } from "./vendorAction";
 import { vendorStatusConfig } from "@/lib/constants/vendors/vendorStatusConfig";
 import { formatTimestamp } from "@/lib/utilis/timeFormatter";
+import { GenericDropdown } from "@/components/DropDown";
 
 const columns: IColumn[] = [
   { id: "farmId", label: "ID" },
@@ -177,7 +178,12 @@ export default function VendorsTable({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className=" bg-app-background border-app-border text-app-foreground">
-            <AlertDialogCancel disabled={isRunning} className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors" >Cancel</AlertDialogCancel>
+            <AlertDialogCancel
+              disabled={isRunning}
+              className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
