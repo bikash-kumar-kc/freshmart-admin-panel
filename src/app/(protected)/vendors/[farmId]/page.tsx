@@ -3,7 +3,15 @@
 
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { User, Mail, Phone, Warehouse, Globe, MapPin, FileText } from "lucide-react";
+import {
+  User,
+  Mail,
+  Phone,
+  Warehouse,
+  Globe,
+  MapPin,
+  FileText,
+} from "lucide-react";
 import PageHeading from "@/components/PageHeading";
 import { useVendorDetailQuery } from "@/lib/hooks/vendor/useVendorDetials";
 import { vendorKeys } from "@/lib/hooks/vendor/vendorList.queries";
@@ -12,7 +20,6 @@ import { DetailSection } from "./DetailsSection";
 import { CertificateGallery } from "./CertificateGallary";
 import { VendorPopularProducts } from "./VendorPopularProducts";
 import { VendorBottomActionBar } from "./VendorButtomActionBar";
-
 
 export default function VendorDetailPage() {
   const { farmId } = useParams<{ farmId: string }>();
@@ -43,7 +50,10 @@ export default function VendorDetailPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeading title={vendor.farmName} message={`Vendor ID: ${vendor.farmId}`} />
+      <PageHeading
+        title={vendor.farmName}
+        message={`Vendor ID: ${vendor.farmId}`}
+      />
 
       <VendorProfileSection
         vendor={vendor}
@@ -65,18 +75,42 @@ export default function VendorDetailPage() {
         title="Farm Details"
         items={[
           { icon: Warehouse, label: "Farm Name", value: vendor.farmName },
-          { icon: Globe, label: "Origin Country", value: vendor.farmOriginCountry },
-          { icon: MapPin, label: "Address / Location", value: vendor.farmAddress },
-          { icon: FileText, label: "Description", value: vendor.farmDescription },
+          {
+            icon: Globe,
+            label: "Origin Country",
+            value: vendor.farmOriginCountry,
+          },
+          {
+            icon: MapPin,
+            label: "Address / Location",
+            value: vendor.farmAddress,
+          },
+          {
+            icon: FileText,
+            label: "Description",
+            value: vendor.farmDescription,
+          },
         ]}
       />
 
-      <CertificateGallery title="PAN/VAT Certificate" images={[vendor.panVatCertificateUrl]} />
-      <CertificateGallery title="Organic Certified Certificate" images={vendor.organicCertificates} />
+      {vendor.status === "approved" && (
+        <VendorPopularProducts products={popularProducts} />
+      )}
 
-      {vendor.status === "approved" && <VendorPopularProducts products={popularProducts} />}
+      <CertificateGallery
+        title="PAN/VAT Certificate"
+        images={[vendor.panVatCertificateUrl]}
+      />
+      <CertificateGallery
+        title="Organic Certified Certificate"
+        images={vendor.organicCertificates}
+      />
 
-      <VendorBottomActionBar vendor={vendor} onApprove={handleApprove} onDelete={handleDelete} />
+      <VendorBottomActionBar
+        vendor={vendor}
+        onApprove={handleApprove}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
