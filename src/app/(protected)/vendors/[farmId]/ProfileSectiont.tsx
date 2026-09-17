@@ -77,7 +77,6 @@ export function VendorProfileSection({
             />
           </div>
 
-          {/* Approved: Edit Profile + kebab actions. Unapproved/deleted: no inline actions here. */}
           {vendor.status === "approved" && (
             <div className="flex items-center gap-2 mt-10">
               <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium border border-app-border text-app-foreground hover:bg-menu-item-hover-bg transition-colors">
@@ -92,7 +91,10 @@ export function VendorProfileSection({
                       <MoreVertical size={14} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className={appPrimaryColorOption}>
+                  <DropdownMenuContent
+                    align="end"
+                    className={appPrimaryColorOption}
+                  >
                     {actions.map((action) => (
                       <DropdownMenuItem
                         key={action.actionName}
@@ -133,22 +135,29 @@ export function VendorProfileSection({
         open={!!pendingAction}
         onOpenChange={(open) => !open && setPendingAction(null)}
       >
-        <AlertDialogContent className="rounded-sm">
+        <AlertDialogContent className={appPrimaryColorOption + "rounded-sm"}>
           <AlertDialogHeader>
-            <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle >
+              {pendingAction?.actionName}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="hover:text-app-foreground transition-colors">
               {pendingAction?.confirmMessage}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
+          <AlertDialogFooter className={appPrimaryColorOption}>
+            <AlertDialogCancel
+              disabled={isRunning}
+              className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
               className={
                 pendingAction?.variant === "destructive"
                   ? "bg-button-destructive-bg hover:bg-button-destructive-bg-hover text-button-destructive-text"
-                  : ""
+                  : "bg-button-primary-bg hover:bg-button-primary-bg-hover"
               }
             >
               {isRunning ? "Please wait..." : "Confirm"}
