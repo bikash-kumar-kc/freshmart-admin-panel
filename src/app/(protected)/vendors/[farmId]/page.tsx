@@ -20,6 +20,7 @@ import { DetailSection } from "./DetailsSection";
 import { CertificateGallery } from "./CertificateGallary";
 import { VendorPopularProducts } from "./VendorPopularProducts";
 import { VendorBottomActionBar } from "./VendorButtomActionBar";
+import Motion from "@/lib/motion/motion";
 
 export default function VendorDetailPage() {
   const { farmId } = useParams<{ farmId: string }>();
@@ -50,67 +51,82 @@ export default function VendorDetailPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeading
-        title={vendor.farmName}
-        message={`Vendor ID: ${vendor.farmId}`}
-      />
+      <Motion delay={0.25}>
+        <PageHeading
+          title={vendor.farmName}
+          message={`Vendor ID: ${vendor.farmId}`}
+        />
+      </Motion>
 
-      <VendorProfileSection
-        vendor={vendor}
-        onApprove={handleApprove}
-        onUnapprove={handleUnapprove}
-        onDelete={handleDelete}
-      />
+      <Motion delay={0.35}>
+        <VendorProfileSection
+          vendor={vendor}
+          onApprove={handleApprove}
+          onUnapprove={handleUnapprove}
+          onDelete={handleDelete}
+        />
+      </Motion>
 
-      <DetailSection
-        title="Personal Details"
-        items={[
-          { icon: User, label: "Farm Owner", value: vendor.farmOwner },
-          { icon: Mail, label: "Email", value: vendor.email },
-          { icon: Phone, label: "Phone", value: vendor.phone },
-        ]}
-      />
+      <Motion delay={0.45}>
+        <DetailSection
+          title="Personal Details"
+          items={[
+            { icon: User, label: "Farm Owner", value: vendor.farmOwner },
+            { icon: Mail, label: "Email", value: vendor.email },
+            { icon: Phone, label: "Phone", value: vendor.phone },
+          ]}
+        />
+      </Motion>
 
-      <DetailSection
-        title="Farm Details"
-        items={[
-          { icon: Warehouse, label: "Farm Name", value: vendor.farmName },
-          {
-            icon: Globe,
-            label: "Origin Country",
-            value: vendor.farmOriginCountry,
-          },
-          {
-            icon: MapPin,
-            label: "Address / Location",
-            value: vendor.farmAddress,
-          },
-          {
-            icon: FileText,
-            label: "Description",
-            value: vendor.farmDescription,
-          },
-        ]}
-      />
+      <Motion delay={0.5}>
+        <DetailSection
+          title="Farm Details"
+          items={[
+            { icon: Warehouse, label: "Farm Name", value: vendor.farmName },
+            {
+              icon: Globe,
+              label: "Origin Country",
+              value: vendor.farmOriginCountry,
+            },
+            {
+              icon: MapPin,
+              label: "Address / Location",
+              value: vendor.farmAddress,
+            },
+            {
+              icon: FileText,
+              label: "Description",
+              value: vendor.farmDescription,
+            },
+          ]}
+        />
+      </Motion>
 
       {vendor.status === "approved" && (
-        <VendorPopularProducts products={popularProducts} />
+        <Motion delay={0.55}>
+          <VendorPopularProducts products={popularProducts} />
+        </Motion>
       )}
+      <Motion delay={0.6}>
+        <CertificateGallery
+          title="PAN/VAT Certificate"
+          images={[vendor.panVatCertificateUrl]}
+        />
+      </Motion>
+      <Motion delay={0.65}>
+        <CertificateGallery
+          title="Organic Certified Certificate"
+          images={vendor.organicCertificates}
+        />
+      </Motion>
 
-      <CertificateGallery
-        title="PAN/VAT Certificate"
-        images={[vendor.panVatCertificateUrl]}
-      />
-      <CertificateGallery
-        title="Organic Certified Certificate"
-        images={vendor.organicCertificates}
-      />
-
-      <VendorBottomActionBar
-        vendor={vendor}
-        onApprove={handleApprove}
-        onDelete={handleDelete}
-      />
+      <Motion delay={0.7}>
+        <VendorBottomActionBar
+          vendor={vendor}
+          onApprove={handleApprove}
+          onDelete={handleDelete}
+        />
+      </Motion>
     </div>
   );
 }
