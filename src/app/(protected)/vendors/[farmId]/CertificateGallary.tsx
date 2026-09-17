@@ -1,4 +1,3 @@
-// vendors/CertificateGallery.tsx
 "use client";
 
 import { useState } from "react";
@@ -16,7 +15,16 @@ import {
 } from "@/components/components/ui/carousel";
 import { Expand } from "lucide-react";
 
-export function CertificateGallery({ title, images }: { title: string; images: string[] }) {
+export const cauroselArrowStyle =
+  "hover:bg-green-200 border hover:border-green-500 text-black transition-colors";
+
+export function CertificateGallery({
+  title,
+  images,
+}: {
+  title: string;
+  images: string[];
+}) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
 
@@ -24,7 +32,9 @@ export function CertificateGallery({ title, images }: { title: string; images: s
 
   return (
     <div className="bg-statcard-background border border-statcard-border rounded-sm p-5">
-      <h3 className="text-sm font-semibold text-app-foreground mb-4">{title}</h3>
+      <h3 className="text-sm font-semibold text-app-foreground mb-4">
+        {title}
+      </h3>
 
       <Carousel className="w-full max-w-md mx-auto sm:mx-0">
         <CarouselContent>
@@ -35,9 +45,14 @@ export function CertificateGallery({ title, images }: { title: string; images: s
                   setStartIndex(index);
                   setLightboxOpen(true);
                 }}
-                className="group relative aspect-[4/3] rounded-sm overflow-hidden border border-app-border cursor-pointer"
+                className="group relative aspect-video rounded-sm overflow-hidden border border-app-border cursor-pointer"
               >
-                <Image src={src} alt={`${title} ${index + 1}`} fill className="object-cover" />
+                <Image
+                  src={src}
+                  alt={`${title} ${index + 1}`}
+                  fill
+                  className="object-cover brightness-50 hover:brightness-100 transition-all"
+                />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                   <Expand
                     size={22}
@@ -50,8 +65,8 @@ export function CertificateGallery({ title, images }: { title: string; images: s
         </CarouselContent>
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
+            <CarouselPrevious className={`${cauroselArrowStyle} left-2`} />
+            <CarouselNext className={`${cauroselArrowStyle} right-2`} />
           </>
         )}
       </Carousel>
