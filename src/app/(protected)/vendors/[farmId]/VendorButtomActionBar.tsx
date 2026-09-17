@@ -15,7 +15,7 @@ import {
 import { IVendorDetail } from "@/types/vendors/vendorDetails.types";
 import { IVendorAction } from "../vendorAction";
 import { getVendorDetailActions } from "./VendorAction";
-
+import { appPrimaryColorOption } from "../VendorPageHeader";
 
 interface VendorBottomActionBarProps {
   vendor: IVendorDetail;
@@ -23,13 +23,23 @@ interface VendorBottomActionBarProps {
   onDelete: () => void;
 }
 
-export function VendorBottomActionBar({ vendor, onApprove, onDelete }: VendorBottomActionBarProps) {
-  const [pendingAction, setPendingAction] = useState<IVendorAction | null>(null);
+export function VendorBottomActionBar({
+  vendor,
+  onApprove,
+  onDelete,
+}: VendorBottomActionBarProps) {
+  const [pendingAction, setPendingAction] = useState<IVendorAction | null>(
+    null,
+  );
   const [isRunning, setIsRunning] = useState(false);
 
   if (vendor.status !== "unapproved") return null;
 
-  const actions = getVendorDetailActions(vendor, { onApprove, onUnapprove: () => {}, onDelete });
+  const actions = getVendorDetailActions(vendor, {
+    onApprove,
+    onUnapprove: () => {},
+    onDelete,
+  });
 
   async function handleConfirm() {
     if (!pendingAction) return;
@@ -58,21 +68,31 @@ export function VendorBottomActionBar({ vendor, onApprove, onDelete }: VendorBot
         </button>
       ))}
 
-      <AlertDialog open={!!pendingAction} onOpenChange={(open) => !open && setPendingAction(null)}>
-        <AlertDialogContent className="rounded-sm">
+      <AlertDialog
+        open={!!pendingAction}
+        onOpenChange={(open) => !open && setPendingAction(null)}
+      >
+        <AlertDialogContent className={`${appPrimaryColorOption} rounded-sm`}>
           <AlertDialogHeader>
             <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>{pendingAction?.confirmMessage}</AlertDialogDescription>
+            <AlertDialogDescription className="hover:text-white transition-colors">
+              {pendingAction?.confirmMessage}
+            </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
+          <AlertDialogFooter className={`${appPrimaryColorOption} rounded-sm`}>
+            <AlertDialogCancel
+              disabled={isRunning}
+              className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
               disabled={isRunning}
               className={
                 pendingAction?.variant === "destructive"
                   ? "bg-button-destructive-bg hover:bg-button-destructive-bg-hover text-button-destructive-text"
-                  : ""
+                  : "bg-button-primary-bg hover:bg-button-primary-bg-hover"
               }
             >
               {isRunning ? "Please wait..." : "Confirm"}
