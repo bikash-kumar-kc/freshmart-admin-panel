@@ -39,7 +39,7 @@ export function CertificateGallery({
       <Carousel className="w-full max-w-md mx-auto sm:mx-0">
         <CarouselContent>
           {images.map((src, index) => (
-            <CarouselItem key={src}>
+            <CarouselItem key={src + index}>
               <div
                 onClick={() => {
                   setStartIndex(index);
