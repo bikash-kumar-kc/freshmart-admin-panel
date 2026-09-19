@@ -111,7 +111,7 @@
   --status-rejected-bg: #fef2f2; /* rejected / cancelled / deleted */
   --status-rejected-text: #dc2626;
   --status-neutral-bg: #f3f4f6; /* draft / unverified / inactive */
-  --status-neutral-text: #6b7280;
+  --status-neutral-text: #000000;
 
   /* ===== Tables ===== */
   --table-header-bg: #f9fafb;
@@ -304,7 +304,7 @@
     --status-rejected-bg: #2a1616;
     --status-rejected-text: #f87171;
     --status-neutral-bg: #262626;
-    --status-neutral-text: #9ca3af;
+    --status-neutral-text: #ffffff;
 
     /* ===== Tables ===== */
     --table-header-bg: #171717;
