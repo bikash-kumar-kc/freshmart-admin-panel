@@ -19,7 +19,7 @@ export const navItems: INavItem[] = [
     icon: Package,
     children: [
       { label: "Product Live", path: "/products/live", icon: Package },
-      { label: "Product Listing", path: "/products/listing", icon: Package },
+      { label: "Product Listing", path: "/products/productListing", icon: Package },
     ],
   },
   {
