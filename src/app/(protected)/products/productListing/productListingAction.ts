@@ -24,7 +24,7 @@ export function getProductListingActions(
   if (product.type === "inventory") {
     return [
       {
-        actionName: "Generate quotation",
+        actionName: "RFQ",
         method: () => handlers.onGenerateQuotation(product.productId), // navigates, no confirm needed
       },
     ];
