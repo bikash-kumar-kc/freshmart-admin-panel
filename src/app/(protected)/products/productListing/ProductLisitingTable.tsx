@@ -144,16 +144,25 @@ export default function ProductListingTable({
         open={!!pendingAction}
         onOpenChange={(open) => !open && setPendingAction(null)}
       >
-        <AlertDialogContent className="rounded-sm">
+        <AlertDialogContent className="rounded-sm bg-app-background border-app-border text-white">
           <AlertDialogHeader>
             <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="hover:text-app-foreground">
               {pendingAction?.confirmMessage}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirm} disabled={isRunning}>
+          <AlertDialogFooter className=" bg-app-background border-app-border text-app-foreground">
+            <AlertDialogCancel
+              disabled={isRunning}
+              className="bg-app-background border-app-border outline-0 hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirm}
+              disabled={isRunning}
+              className="bg-button-primary-bg hover:bg-button-primary-bg-hover"
+            >
               {isRunning ? "Please wait..." : "Confirm"}
             </AlertDialogAction>
           </AlertDialogFooter>
