@@ -20,7 +20,6 @@ import { productListingStatusConfig } from "@/lib/constants/products/productList
 import { getProductListingActions } from "./productListingAction";
 import { formatTimestamp } from "@/lib/utilis/timeFormatter";
 
-
 const columns: IColumn[] = [
   { id: "productId", label: "ID" },
   { id: "farmName", label: "Farm Name" },
@@ -50,7 +49,9 @@ export default function ProductListingTable({
   onNotifyVendor,
 }: ProductListingTableProps) {
   const router = useRouter();
-  const [pendingAction, setPendingAction] = useState<IVendorAction | null>(null);
+  const [pendingAction, setPendingAction] = useState<IVendorAction | null>(
+    null,
+  );
   const [isRunning, setIsRunning] = useState(false);
 
   async function handleConfirm() {
@@ -66,21 +67,35 @@ export default function ProductListingTable({
 
   function renderRow(product: IProductListingRow) {
     const status = productListingStatusConfig[product.status];
-    const actions = getProductListingActions(product, { onApprove, onGenerateQuotation, onNotifyVendor });
+    const actions = getProductListingActions(product, {
+      onApprove,
+      onGenerateQuotation,
+      onNotifyVendor,
+    });
 
     return (
       <>
         <td className="px-4 py-3 text-table-cell-text">{product.productId}</td>
         <td className="px-4 py-3 text-table-cell-text">{product.farmName}</td>
-        <td className="px-4 py-3 text-table-cell-text font-medium">{product.productName}</td>
-        <td className="px-4 py-3 text-table-cell-text capitalize">{product.type}</td>
-        <td className="px-4 py-3 text-right text-table-cell-text">{product.quantity}</td>
-        <td className="px-4 py-3 text-right text-table-cell-text">Rs {product.unitPrice}</td>
+        <td className="px-4 py-3 text-table-cell-text font-medium">
+          {product.productName}
+        </td>
+        <td className="px-4 py-3 text-table-cell-text capitalize">
+          {product.type}
+        </td>
+        <td className="px-4 py-3 text-right text-table-cell-text">
+          {product.quantity}
+        </td>
+        <td className="px-4 py-3 text-right text-table-cell-text">
+          Rs {product.unitPrice}
+        </td>
         <td className="px-4 py-3 text-table-cell-text whitespace-nowrap text-xs">
           {formatTimestamp(product.createdAt)}
         </td>
         <td className="px-4 py-3 text-center">
-          <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${status.badgeClass}`}>
+          <span
+            className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${status.badgeClass}`}
+          >
             {status.label}
           </span>
         </td>
@@ -90,12 +105,12 @@ export default function ProductListingTable({
               e.stopPropagation();
               router.push(`/products/productListing/${product.productId}`);
             }}
-            className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-green-600 bg-green-50 transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
+            className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-green-600 bg-app-background transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
           >
-            View details
+            Details
           </button>
         </td>
-        <td className="px-4 py-3 text-right">
+        <td className="px-4 py-3 text-center">
           {actions.map((action) => (
             <button
               key={action.actionName}
@@ -104,7 +119,7 @@ export default function ProductListingTable({
                 if (action.confirmMessage) setPendingAction(action);
                 else action.method();
               }}
-              className="text-xs font-medium text-brand-primary hover:underline"
+              className="px-3 py-1.5 rounded-sm text-xs font-semibold border border-green-500 text-green-600 bg-app-background transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
             >
               {action.actionName}
             </button>
@@ -125,11 +140,16 @@ export default function ProductListingTable({
         emptyMessage="No products found."
       />
 
-      <AlertDialog open={!!pendingAction} onOpenChange={(open) => !open && setPendingAction(null)}>
+      <AlertDialog
+        open={!!pendingAction}
+        onOpenChange={(open) => !open && setPendingAction(null)}
+      >
         <AlertDialogContent className="rounded-sm">
           <AlertDialogHeader>
             <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
-            <AlertDialogDescription>{pendingAction?.confirmMessage}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {pendingAction?.confirmMessage}
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isRunning}>Cancel</AlertDialogCancel>
