@@ -8,7 +8,7 @@ import AppSidebar from "@/components/Sidebar";
 import type { ReactNode } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  // TODO: wire to real unread-count query once notifications resource is built for admin
+ 
   const unreadCount = 3; // demo value for now
 
   return (
