@@ -23,6 +23,7 @@
   /* ===== App shell ===== */
   --app-background: #f5f9f0; /* overall page background */
   --app-foreground: #171717; /* default body text */
+  --app-background-hover: #f5f5f5;
   --app-muted-foreground: #6b7280; /* secondary/muted text (gray-500 equivalent) */
   --app-border: #e5e7eb; /* default hairline borders */
   --app-muted-foreground-hover: #4f545e;
@@ -217,6 +218,7 @@
     /* ===== App shell ===== */
     --app-background: #121212;
     --app-foreground: #ededed;
+    --app-background-hover: #262626;
     --app-muted-foreground: #9ca3af;
     --app-border: #262626;
     --app-muted-foreground-hover: #69717f;
@@ -349,6 +351,7 @@
 
   --color-app-background: var(--app-background);
   --color-app-foreground: var(--app-foreground);
+  --color-app-background-hover: var(--app-background-hover);
   --color-app-muted-foreground: var(--app-muted-foreground);
   --color-app-border: var(--app-border);
   --color-app-muted-foreground-hover: var(--app-muted-foreground-hover);
@@ -534,7 +537,7 @@
 
 body {
   font-family: var(--font-fira-sans);
-  background:var(--app-background);
+  background: var(--app-background);
   color: var(--app-foreground);
 }
 
