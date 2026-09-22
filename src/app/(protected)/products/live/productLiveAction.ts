@@ -26,7 +26,7 @@ export function getProductLiveActions(
   if (product.liveStatus === "live") {
     if (product.type === "inventory") {
       actions.push({
-        actionName: "Generate quotation",
+        actionName: "Generate Rfq",
         method: () => handlers.onGenerateQuotation(product.productId),
       });
     } else {
