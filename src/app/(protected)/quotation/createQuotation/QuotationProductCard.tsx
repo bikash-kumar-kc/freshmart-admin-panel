@@ -114,7 +114,7 @@ export function QuotationProductCard({
             return (
               <div
                 key={field.id}
-                className="grid grid-cols-2 sm:grid-cols-5 gap-3 items-start p-3 rounded-sm border border-app-border hover:border-input-border-focus"
+                className=" relative grid grid-cols-2 sm:grid-cols-5 gap-3 items-start p-3 rounded-sm border border-app-border hover:border-input-border-focus"
               >
                 <div>
                   <p className="text-[11px] text-app-muted-foreground">
@@ -180,7 +180,7 @@ export function QuotationProductCard({
                   )}
                 </div>
 
-                <div className="flex items-start justify-end">
+                <div className="absolute top-1 right-1">
                   <button
                     onClick={() => remove(variantIndex)}
                     className="p-1.5 rounded-sm text-status-rejected-text hover:bg-status-rejected-bg transition-colors"
