@@ -12,13 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/components/ui/alert-dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
+
 import ReusableTable, { IColumn } from "@/components/ReuseableTable";
 import { IVendorListItem } from "@/types/vendors/vendorList.types";
 import { getVendorActions, IVendorAction } from "./vendorAction";
