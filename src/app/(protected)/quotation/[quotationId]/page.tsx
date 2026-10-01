@@ -1,4 +1,4 @@
-// app/quotation/[quotationId]/page.tsx
+
 "use client";
 
 import { useParams } from "next/navigation";
@@ -7,6 +7,7 @@ import { useQuotationDetailQuery } from "@/lib/hooks/quotation/quotationDetailsH
 import { QuotationDetailsSection } from "./QuotationDetailSection";
 import { QuotationVariantsDetail } from "./QuotationVarientsDetails";
 import { QuotationDetailActionBar } from "./QuotationDetailActionBar";
+import { QuotationDetailHeader } from "./QuotationDetailHeader";
 
 export default function QuotationDetailPage() {
   const { quotationId } = useParams<{ quotationId: string }>();
@@ -33,6 +34,7 @@ export default function QuotationDetailPage() {
 
   return (
     <div className="space-y-5">
+      <QuotationDetailHeader quotation={quotation} />
       <QuotationDetailsSection quotation={quotation} />
       <QuotationVariantsDetail
         variants={quotation.variants}
