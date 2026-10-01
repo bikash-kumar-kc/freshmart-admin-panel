@@ -3,7 +3,11 @@
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { format } from "date-fns";
-import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/components/ui/chart";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+} from "@/components/components/ui/chart";
 import { IProductSalesTrendPoint } from "@/types/product/productLiveDetails.types";
 
 const chartConfig = {
@@ -24,7 +28,7 @@ export function ProductSalesTrendChart({
       <ChartContainer config={chartConfig} className="h-56 w-full">
         <AreaChart
           data={data}
-          margin={{ left: 0, right: 0, top: 8, bottom: 0 }}
+          margin={{ left: 12, right: 12, top: 8, bottom: 0 }}
         >
           <defs>
             <linearGradient id="fillSales" x1="0" y1="0" x2="0" y2="1">
