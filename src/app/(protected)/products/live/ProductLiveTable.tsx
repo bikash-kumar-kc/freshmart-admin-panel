@@ -1,4 +1,4 @@
-// products/ProductLiveTable.tsx
+
 "use client";
 
 import { useState } from "react";
