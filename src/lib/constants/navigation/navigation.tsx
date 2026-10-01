@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, Users, Bell, type LucideIcon } from "lucide-react";
+import { LayoutDashboard, Package, Users, Bell, type LucideIcon, FileText } from "lucide-react";
 
 export interface INavItem {
   label: string;
@@ -26,6 +26,11 @@ export const navItems: INavItem[] = [
     label: "Vendors",
     path: "/vendors",
     icon: Users,
+  },
+  {
+    label: "Quotation",
+    path: "/quotation",
+    icon: FileText,
   },
   {
     label: "Notifications",
