@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -13,7 +12,6 @@ import ReuseableSelect from "@/components/ReuseableSelect";
 import { appPrimaryColorOption } from "../vendors/VendorPageHeader";
 import { subStatusOptionsByBucket } from "@/lib/constants/quotation/quotationStatus";
 import { selectItemClass } from "@/components/dashboard/SalesOverviewChart";
-
 
 interface QuotationListHeaderProps {
   bucket: QuotationPrimaryBucket;
@@ -33,9 +31,6 @@ export function QuotationListHeader({
   const router = useRouter();
   const [query, setQuery] = useState("");
 
-
-  
-
   return (
     <div className="space-y-4 mb-4">
       <div className="flex items-center justify-between gap-3">
@@ -44,7 +39,7 @@ export function QuotationListHeader({
           message="Manage inventory purchase negotiations with vendors"
         />
         <button
-          onClick={() => router.push("/quotation/create")}
+          onClick={() => router.push("/quotation/createQuotation")}
           className="px-4 py-2 rounded-sm text-sm font-medium bg-brand-primary text-white hover:bg-brand-primary/90 transition-colors shrink-0"
         >
           Generate Quotation
