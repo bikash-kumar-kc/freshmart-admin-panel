@@ -1,13 +1,13 @@
+"use client";
 import { Bell } from "lucide-react";
 import { SidebarTrigger } from "./ui/sidebar";
 import { useRouter } from "next/navigation";
+import { useUnreadNotificationCountQuery } from "@/lib/hooks/notification/notification.queries";
 
-export default function TopStrip({
-  unreadCount = 0,
-}: {
-  unreadCount?: number;
-}) {
+export default function TopStrip() {
   const router = useRouter();
+  const { data } = useUnreadNotificationCountQuery();
+  const unreadCount = data?.unreadCount || 0;
 
   return (
     <div className="sticky top-0 z-50 flex h-12 w-full items-center justify-between border-b border-app-border bg-app-background px-4 text-app-foreground">
