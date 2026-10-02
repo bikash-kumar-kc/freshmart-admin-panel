@@ -9,14 +9,14 @@ import type { ReactNode } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
  
-  const unreadCount = 3; // demo value for now
+  
 
   return (
     <SidebarProvider>
       <TooltipProvider>
         <AppSidebar />
         <SidebarInset>
-          <TopStrip unreadCount={unreadCount} />
+          <TopStrip />
 
           <main className=" min-h-screen  w-full px-4 sm:px-6 lg:px-8 py-6 transition-all duration-200 bg-app-background! text-app-muted-foreground!">
             {children}
