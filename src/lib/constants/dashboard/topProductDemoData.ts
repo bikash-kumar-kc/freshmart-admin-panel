@@ -1,12 +1,13 @@
 import { ITopProduct } from "@/types/dashboard/topProduct.types";
 
-
 export const topProductsDemoData: ITopProduct[] = [
   {
+    vendorId: "FM-1001",
     id: "1",
     productId: "WSS-3345",
     name: "Classic Leather Jacket",
-    image: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
     type: "inventory",
     sales: 500,
     earning: 25000,
@@ -14,10 +15,12 @@ export const topProductsDemoData: ITopProduct[] = [
     status: "in_stock",
   },
   {
+    vendorId: "FM-1001",
     id: "2",
     productId: "MDJ-2210",
     name: "Organic Apple (500g)",
-    image: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
     type: "display",
     sales: 350,
     earning: 63500,
@@ -25,10 +28,12 @@ export const topProductsDemoData: ITopProduct[] = [
     status: "in_stock",
   },
   {
+    vendorId: "FM-1001",
     id: "3",
     productId: "DHB-3056",
     name: "Farm Fresh Milk (1L)",
-    image: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
     type: "inventory",
     sales: 621,
     earning: 42500,
@@ -36,10 +41,12 @@ export const topProductsDemoData: ITopProduct[] = [
     status: "low_stock",
   },
   {
+    vendorId: "FM-1001",
     id: "4",
     productId: "RCE-1180",
     name: "Basmati Rice (5kg)",
-    image: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
     type: "inventory",
     sales: 210,
     earning: 18700,
@@ -47,10 +54,12 @@ export const topProductsDemoData: ITopProduct[] = [
     status: "out_of_stock",
   },
   {
+    vendorId: "FM-1001",
     id: "5",
     productId: "GHT-4092",
     name: "Pure Ghee (900ml)",
-    image: "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=600&q=80",
     type: "display",
     sales: 140,
     earning: 15200,
