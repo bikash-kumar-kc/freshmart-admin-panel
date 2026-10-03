@@ -10,7 +10,7 @@ interface ResponsiveProductLiveTableProps {
   data: IProductLiveRow[];
   isLoading: boolean;
   onToggleLive: (id: string, next: "live" | "draft") => void;
-  onGenerateQuotation: (id: string) => void;
+  onGenerateQuotation: (vendorId: string, id: string) => void;
   onNotifyVendor: (id: string) => void;
 }
 
