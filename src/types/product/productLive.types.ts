@@ -5,6 +5,7 @@ export type ProductLiveType = "inventory" | "display";
 export type SalesSort = "high_to_low" | "low_to_high";
 
 export interface IProductLiveRow {
+  vendorId:string;
   productId: string;
   productName: string;
   image: string;
