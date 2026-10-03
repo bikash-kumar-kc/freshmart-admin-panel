@@ -17,7 +17,9 @@ export default function TopProductsCard({ product }: { product: ITopProduct }) {
     if (product.type === "inventory") {
       router.push(`/quotation/create?productId=${product.id}`);
     } else {
-      router.push(`/notifications/create?productId=${product.id}`);
+      router.push(
+        `/notifications/createQuotation?vendorId=${product.vendorId}&productId=${product.id}`,
+      );
     }
   }
 
