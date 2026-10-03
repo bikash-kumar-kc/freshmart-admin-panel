@@ -15,7 +15,7 @@ function statusToVariant(status: IProductListingRow["status"]) {
 interface ProductListingCardProps {
   product: IProductListingRow;
   onApprove: (id: string) => void;
-  onGenerateQuotation: (id: string) => void;
+  onGenerateQuotation: (vendorId:string,id: string) => void;
   onNotifyVendor: (id: string) => void;
 }
 
