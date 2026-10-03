@@ -27,6 +27,7 @@ export const productLiveDemoData: IProductLiveRow[] = Array.from(
   (_, i) => {
     const liveStatus = i % 5 === 0 ? "draft" : "live";
     return {
+       vendorId: `FM-${1000 + i}`,
       productId: `PLV-${3000 + i}`,
       productName: names[i % names.length],
       image:
