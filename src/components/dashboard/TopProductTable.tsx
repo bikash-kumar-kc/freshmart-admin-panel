@@ -30,9 +30,13 @@ export default function TopProductsTable({
 
   function handleAction(product: ITopProduct) {
     if (product.type === "inventory") {
-      router.push(`/quotation/create?productId=${product.id}`);
+      router.push(
+        `/quotation/createQuotation?vendorId=${product.vendorId}&productId=${product.id}`,
+      );
     } else {
-      router.push(`/notifications/create?productId=${product.id}`);
+      router.push(
+        `/notifications/createQuotation?vendorId=${product.vendorId}&productId=${product.id}`,
+      );
     }
   }
 
