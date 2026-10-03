@@ -1,10 +1,12 @@
-import type{ IApprovedProductOption, IApprovedVendorOption } from "@/types/quotation/createquotation.types";
-
+import type {
+  IApprovedProductOption,
+  IApprovedVendorOption,
+} from "@/types/quotation/createquotation.types";
 
 export const approvedVendorsDemoData: IApprovedVendorOption[] = [
   { vendorId: "FM-1000", farmName: "Sunrise Organic Farm", status: "approved" },
   { vendorId: "FM-1001", farmName: "Green Valley Farm", status: "approved" },
-  { vendorId: "FM-1002", farmName: "Himalayan Dairy", status: "approved" },
+  { vendorId: "FM-1031", farmName: "Himalayan Dairy", status: "approved" },
 ];
 
 const productsByVendor: Record<string, IApprovedProductOption[]> = {
@@ -54,6 +56,8 @@ const productsByVendor: Record<string, IApprovedProductOption[]> = {
   ],
 };
 
-export function getApprovedProductsByVendorDemoData(vendorId: string): IApprovedProductOption[] {
+export function getApprovedProductsByVendorDemoData(
+  vendorId: string,
+): IApprovedProductOption[] {
   return productsByVendor[vendorId] ?? [];
 }
