@@ -1,7 +1,7 @@
 // app/quotation/create/page.tsx
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageHeading from "@/components/PageHeading";
@@ -21,10 +21,16 @@ import { ICreateQuotationPayload } from "@/types/quotation/createquotation.types
 import { VendorCombobox } from "./VendorCombo";
 import { ProductMultiCombobox } from "./ProductMultiCombo";
 import { QuotationProductCard } from "./QuotationProductCard";
+import { useEffect } from "react";
 
 export default function CreateQuotationPage() {
   const router = useRouter();
   const { user } = useAuthContext();
+
+  const searchParams = useSearchParams();
+
+  const vendorSearchId = searchParams.get("vendorId");
+  const productId = searchParams.get("productId");
 
   const { data: vendors = [] } = useApprovedVendorsQuery();
 
@@ -98,6 +104,17 @@ export default function CreateQuotationPage() {
     router.push("/quotation");
   }
 
+  useEffect(() => {
+    if (
+      availableProducts &&
+      productId &&
+      availableProducts.filter((p) => p.productListingId === productId).length >
+        0
+    ) {
+      toggleProduct(productId);
+    }
+  }, [availableProducts, productId]);
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -113,7 +130,7 @@ export default function CreateQuotationPage() {
             </p>
             <VendorCombobox
               vendors={vendors}
-              value={vendorId}
+              value={vendorId ?? vendorSearchId}
               onChange={handleVendorChange}
             />
             {errors.vendorId && (
@@ -132,6 +149,13 @@ export default function CreateQuotationPage() {
               selectedIds={productFields.map((p) => p.productListingId)}
               onToggle={toggleProduct}
               disabled={!vendorId}
+              defaultId={
+                availableProducts.filter(
+                  (p) => p.productListingId === productId,
+                ).length > 0
+                  ? productId
+                  : null
+              }
             />
             {errors.products?.root?.message && (
               <p className="text-xs text-input-text-error mt-1">
