@@ -43,8 +43,8 @@ export default function ProductLivePage() {
     console.log("toggle live", id, next);
     invalidate();
   }
-  function handleGenerateQuotation(id: string) {
-    router.push(`/quotation/create?productId=${id}`);
+  function handleGenerateQuotation(vendorId:string,id: string) {
+    router.push(`/quotation/createQuotation?vendorId=${vendorId}&productId=${id}`);
   }
   function handleNotifyVendor(id: string) {
     console.log("notify vendor", id);
