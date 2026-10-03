@@ -8,7 +8,6 @@ import { formatOfferRemaining } from "@/lib/utilis/offerFormat";
 import { liveStatusConfig } from "@/lib/constants/products/productliveStatusConfig";
 import { getProductLiveActions } from "./productLiveAction";
 
-
 export default function ProductLiveCard({
   product,
   onToggleLive,
@@ -17,7 +16,7 @@ export default function ProductLiveCard({
 }: {
   product: IProductLiveRow;
   onToggleLive: (id: string, next: "live" | "draft") => void;
-  onGenerateQuotation: (id: string) => void;
+  onGenerateQuotation: (vendorId: string,id: string) => void;
   onNotifyVendor: (id: string) => void;
 }) {
   const router = useRouter();
@@ -40,7 +39,11 @@ export default function ProductLiveCard({
       facts={facts}
       meta={product.productId}
       onClick={() => router.push(`/products/live/${product.productId}`)}
-      actions={getProductLiveActions(product, { onToggleLive, onGenerateQuotation, onNotifyVendor })}
+      actions={getProductLiveActions(product, {
+        onToggleLive,
+        onGenerateQuotation,
+        onNotifyVendor,
+      })}
     />
   );
 }
