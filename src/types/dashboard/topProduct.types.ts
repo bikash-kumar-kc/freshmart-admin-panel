@@ -3,6 +3,7 @@ export type ProductSourceType = "inventory" | "display";
 export type TopProductsPeriod = "week" | "month";
 
 export interface ITopProduct {
+  vendorId:string;
   id: string;
   productId: string; // human-readable ID shown in the table, e.g. "WSS-3345"
   name: string;
