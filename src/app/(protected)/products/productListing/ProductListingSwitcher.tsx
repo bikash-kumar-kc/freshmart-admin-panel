@@ -10,7 +10,7 @@ interface ResponsiveProductListingTableProps {
   data: IProductListingRow[];
   isLoading: boolean;
   onApprove: (id: string) => void;
-  onGenerateQuotation: (id: string) => void;
+  onGenerateQuotation: (vendorId:string,id: string) => void;
   onNotifyVendor: (id: string) => void;
 }
 
