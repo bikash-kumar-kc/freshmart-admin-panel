@@ -1,12 +1,11 @@
 import { IVendorAction } from "@/app/(protected)/vendors/vendorAction";
 import { IProductListingRow } from "@/types/product/productListing/productlisting.types";
 
-
 export function getProductListingActions(
   product: IProductListingRow,
   handlers: {
     onApprove: (id: string) => void;
-    onGenerateQuotation: (id: string) => void;
+    onGenerateQuotation: (vendorId: string, id: string) => void;
     onNotifyVendor: (id: string) => void;
   },
 ): IVendorAction[] {
@@ -25,7 +24,8 @@ export function getProductListingActions(
     return [
       {
         actionName: "RFQ",
-        method: () => handlers.onGenerateQuotation(product.productId), // navigates, no confirm needed
+        method: () =>
+          handlers.onGenerateQuotation(product.vendorId, product.productId), // navigates, no confirm needed
       },
     ];
   }
