@@ -28,6 +28,7 @@ interface ProductMultiComboboxProps {
   selectedIds: string[];
   onToggle: (productListingId: string) => void;
   disabled: boolean;
+  defaultId: string | null;
 }
 
 export function ProductMultiCombobox({
@@ -35,8 +36,11 @@ export function ProductMultiCombobox({
   selectedIds,
   onToggle,
   disabled,
+  defaultId,
 }: ProductMultiComboboxProps) {
   const [open, setOpen] = useState(false);
+
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
