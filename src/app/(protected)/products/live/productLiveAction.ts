@@ -1,12 +1,11 @@
 import { IProductLiveRow } from "@/types/product/productLive.types";
 import { IVendorAction } from "../../vendors/vendorAction";
 
-
 export function getProductLiveActions(
-  product: IProductLiveRow,
+  product: IProductLiveRow & { vendorId: string },
   handlers: {
     onToggleLive: (id: string, nextStatus: "live" | "draft") => void;
-    onGenerateQuotation: (id: string) => void;
+    onGenerateQuotation: (vendorId: string, id: string) => void;
     onNotifyVendor: (id: string) => void;
   },
 ): IVendorAction[] {
@@ -17,7 +16,11 @@ export function getProductLiveActions(
         ? `Publish "${product.productName}"? It will become visible and orderable.`
         : `Set "${product.productName}" back to draft? It will no longer be visible to customers.`,
     variant: product.liveStatus === "live" ? "destructive" : "default",
-    method: () => handlers.onToggleLive(product.productId, product.liveStatus === "draft" ? "live" : "draft"),
+    method: () =>
+      handlers.onToggleLive(
+        product.productId,
+        product.liveStatus === "draft" ? "live" : "draft",
+      ),
   };
 
   const actions: IVendorAction[] = [toggleAction];
@@ -27,7 +30,8 @@ export function getProductLiveActions(
     if (product.type === "inventory") {
       actions.push({
         actionName: "Generate Rfq",
-        method: () => handlers.onGenerateQuotation(product.productId),
+        method: () =>
+          handlers.onGenerateQuotation(product.vendorId, product.productId),
       });
     } else {
       actions.push({
