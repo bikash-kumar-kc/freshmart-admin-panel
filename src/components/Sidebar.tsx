@@ -4,7 +4,8 @@ import { Leaf, ChevronDown, LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { navItems } from "@/lib/constants/navigation/navigation";
 import { useAuthContext } from "@/providers/AuthContextProvider";
-import { useLogoutMutation } from "@/lib/hooks/useLogout";
+// import { useLogoutMutation } from "@/lib/hooks/useLogout";
+import Cookies from "js-cookie";
 import {
   Sidebar,
   SidebarContent,
@@ -30,6 +31,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "./components/ui/avatar";
+import FREEZE_API_CONSTANTS from "@/client/axios/constant";
+import { showToast } from "./Toast";
 
 export const resueableButtonCss =
   "hover:bg-[#262626] hover:text-button-secondary-text rounded-0! w-full py-5 text-[16px] tracking-wider rounded-0! data-[active=true]:bg-button-secondary-bg data-[active=true]:text-button-secondary-text active:bg-transparent active:scale-100 active:text-button-secondary-text px-2 py-5 rounded-sm";
@@ -38,8 +41,8 @@ export default function AppSidebar() {
   const location = usePathname();
 
   const router = useRouter();
-  const { user } = useAuthContext();
-  const logoutMutation = useLogoutMutation();
+  const { user, setUser } = useAuthContext();
+  // const logoutMutation = useLogoutMutation();
 
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(
     navItems.find((item) =>
@@ -48,7 +51,10 @@ export default function AppSidebar() {
   );
 
   async function handleLogout() {
-    await logoutMutation.mutateAsync();
+    // await logoutMutation.mutateAsync();
+    Cookies.remove(FREEZE_API_CONSTANTS.ACCESSTOKENAME);
+    setUser(null);
+    showToast.success("Logout Successfully.");
     router.push("/login");
   }
 
