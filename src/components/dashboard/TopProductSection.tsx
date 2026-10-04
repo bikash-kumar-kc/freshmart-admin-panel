@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/components/ui/select";
+
 import {
   ProductStockStatus,
   TopProductsPeriod,
