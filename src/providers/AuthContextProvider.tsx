@@ -6,6 +6,7 @@ import { showToast } from "../components/Toast";
 import Cookies from "js-cookie";
 import authservice from "../services/authservices";
 import "../client/axios/interceptor";
+import FREEZE_API_CONSTANTS from "@/client/axios/constant";
 
 interface AuthContextValue {
   user: IAuthUser | null;
@@ -23,7 +24,6 @@ const AuthContextProvider = ({ children }: IProps) => {
   const getCurrentUser = async () => {
     try {
       const response = await authservice.getCurrentUser();
-      console.log("i am here");
       setUser({
         id: response.user.id,
         role: response.user.role,
@@ -47,7 +47,7 @@ const AuthContextProvider = ({ children }: IProps) => {
   };
 
   useEffect(() => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get(FREEZE_API_CONSTANTS.ACCESSTOKENAME);
     if (!token) {
       setIsLoading(false);
       return;
