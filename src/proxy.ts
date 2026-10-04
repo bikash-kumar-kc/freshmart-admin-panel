@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import FREEZE_API_CONSTANTS from "./client/axios/constant";
 
 const publicPaths = ["/login", "/register"];
 
@@ -8,7 +9,9 @@ export async function proxy(request: NextRequest) {
   if (publicPaths.some((p) => pathname.startsWith(p))) {
     return NextResponse.next();
   }
-  const sessionCookie = request.cookies.get("accessToken");
+  const sessionCookie = request.cookies.get(
+    FREEZE_API_CONSTANTS.ACCESSTOKENAME,
+  );
 
   if (!sessionCookie) {
     const loginUrl = new URL("/login", request.url);
