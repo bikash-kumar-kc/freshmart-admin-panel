@@ -1,22 +1,13 @@
-import {
-  ITopProduct,
-  ProductStockStatus,
-  TopProductsPeriod,
-} from "@/types/dashboard/topProduct.types";
+// api/dashboard/dashboard.queries.ts
+import dashboardServices from "@/services/dashboard/dashboard.services";
+import { ITopProduct, TopProductsPeriod } from "@/types/dashboard/topProduct.types";
+import { ProductStockStatus } from "@/types/product/productLive.types";
 import { useQuery } from "@tanstack/react-query";
-import { topProductsDemoData } from "../constants/dashboard/topProductDemoData";
 
-export function useTopProductsQuery(
-  period: TopProductsPeriod,
-  statusFilter: ProductStockStatus | "all",
-) {
+
+export function useTopProductsQuery(period: TopProductsPeriod, status: ProductStockStatus | "all") {
   return useQuery<ITopProduct[]>({
-    queryKey: ["topProducts", period, statusFilter],
-    queryFn: () =>
-      Promise.resolve(
-        statusFilter === "all"
-          ? topProductsDemoData
-          : topProductsDemoData.filter((p) => p.status === statusFilter),
-      ),
+    queryKey: ["dashboard", "topProducts", period, status],
+    queryFn: () => dashboardServices.getTopProducts(period, status),
   });
 }
