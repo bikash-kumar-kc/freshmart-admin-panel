@@ -1,7 +1,7 @@
 "use client";
 
 import { showToast } from "@/components/Toast";
-import { useLogin } from "@/lib/hooks/useLogin";
+import { useLogin } from "@/lib/hooks/auth/useLogin";
 import { useAuthContext } from "@/providers/AuthContextProvider";
 import { ILoginType, schemaForSession } from "@/validation/zod-schema-validation/login.schema.validation";
 import { zodResolver } from "@hookform/resolvers/zod";

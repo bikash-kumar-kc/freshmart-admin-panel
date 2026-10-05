@@ -6,7 +6,7 @@ import {
   ProductStockStatus,
   TopProductsPeriod,
 } from "@/types/dashboard/topProduct.types";
-import { useTopProductsQuery } from "@/lib/hooks/useDashBoardTopProduct";
+import { useTopProductsQuery } from "@/lib/hooks/dashboard/useDashBoardTopProduct";
 import { selectItemClass } from "./SalesOverviewChart";
 import ResponsiveProductList from "./ResponsiveProductList";
 import ReuseableSelect from "../ReuseableSelect";
