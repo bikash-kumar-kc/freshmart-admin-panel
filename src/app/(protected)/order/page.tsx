@@ -12,6 +12,7 @@ import {
 } from "@/lib/hooks/order/order.queries";
 import { OrderListHeader } from "./OrderListHeader";
 import ResponsiveOrderList from "./ResponsiveOrderList";
+import { useDebouncedValue } from "@/lib/hooks/useDebounce";
 
 export default function OrderListPage() {
   const queryClient = useQueryClient();
@@ -22,7 +23,9 @@ export default function OrderListPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const query = { bucket, status, search, page, pageSize };
+  const debouncedSearch = useDebouncedValue(search, 500);
+
+  const query = { bucket, status, search: debouncedSearch, page, pageSize };
 
   const inventoryQuery = useInventoryOrderListQuery(query);
   const displayQuery = useDisplayOrderListQuery(query);
