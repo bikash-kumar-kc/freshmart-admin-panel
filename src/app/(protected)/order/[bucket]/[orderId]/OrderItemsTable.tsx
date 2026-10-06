@@ -1,9 +1,15 @@
-// orders/OrderItemsTable.tsx
-import { IOrderItemDetail } from "@/types/order/orderDetail.types";
+// app/(protected)/order/[bucket]/[orderId]/OrderItemsTable.tsx
 import Image from "next/image";
 
+interface OrderItemRow {
+  productId: string;
+  productName: string;
+  image: string;
+  quantity: number;
+  price?: number | null; // real, from productVariants — Inventory only, nullable
+}
 
-export function OrderItemsTable({ items, totalDiscount }: { items: IOrderItemDetail[]; totalDiscount: number | null }) {
+export function OrderItemsTable({ items, totalDiscount }: { items: OrderItemRow[]; totalDiscount: number | null }) {
   return (
     <div className="bg-statcard-background border border-statcard-border rounded-sm p-5">
       <h3 className="text-sm font-semibold text-app-foreground mb-4">Order Items</h3>
@@ -16,7 +22,6 @@ export function OrderItemsTable({ items, totalDiscount }: { items: IOrderItemDet
               <th className="text-left px-3 py-2 text-xs font-semibold text-statcard-label uppercase tracking-wide">ID</th>
               <th className="text-right px-3 py-2 text-xs font-semibold text-statcard-label uppercase tracking-wide">Qty</th>
               <th className="text-right px-3 py-2 text-xs font-semibold text-statcard-label uppercase tracking-wide">Amount</th>
-              <th className="text-right px-3 py-2 text-xs font-semibold text-statcard-label uppercase tracking-wide">Discount</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-app-border">
@@ -32,9 +37,8 @@ export function OrderItemsTable({ items, totalDiscount }: { items: IOrderItemDet
                 </td>
                 <td className="px-3 py-3 text-table-cell-text">{item.productId}</td>
                 <td className="px-3 py-3 text-right text-table-cell-text">{item.quantity}</td>
-                <td className="px-3 py-3 text-right text-table-cell-text">Rs {item.amount}</td>
                 <td className="px-3 py-3 text-right text-table-cell-text">
-                  {item.discount !== null ? `Rs ${item.discount}` : <span className="text-app-muted-foreground">—</span>}
+                  {item.price != null ? `Rs ${item.price * item.quantity}` : "—"}
                 </td>
               </tr>
             ))}
