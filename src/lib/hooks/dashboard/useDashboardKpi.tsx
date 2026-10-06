@@ -1,7 +1,8 @@
 // api/dashboard/dashboard.queries.ts
+import { kpiDemoData } from "@/lib/constants/dashboard/kpiCardInfo";
 import { IKpiCardData } from "@/types/dashboard/dashboard.types";
 import { useQuery } from "@tanstack/react-query";
-import { kpiDemoData } from "../constants/dashboard/kpiCardInfo";
+
 
 
 export const dashboardKeys = {
