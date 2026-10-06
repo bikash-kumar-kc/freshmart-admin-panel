@@ -25,7 +25,7 @@ export default function OrderListPage() {
 
   const debouncedSearch = useDebouncedValue(search, 500);
 
-  const query = { bucket, status, search: debouncedSearch, page, pageSize };
+  const query = {  status, search: debouncedSearch, page, pageSize };
 
   const inventoryQuery = useInventoryOrderListQuery(query);
   const displayQuery = useDisplayOrderListQuery(query);
