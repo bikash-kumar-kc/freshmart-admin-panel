@@ -3,7 +3,7 @@ import KpiCard from "@/components/dashboard/KpiCard";
 import SalesOverviewChart from "@/components/dashboard/SalesOverviewChart";
 import TopProductsSection from "@/components/dashboard/TopProductSection";
 import { kpiCardConfigs } from "@/lib/constants/dashboard/kpiCardConfigs";
-import { useDashboardKpisQuery } from "@/lib/hooks/useDashboardKpi";
+import { useDashboardKpisQuery } from "@/lib/hooks/dashboard/useDashboardKpi";
 import Motion from "@/lib/motion/motion";
 
 const Page = () => {
