@@ -1,44 +1,89 @@
-import { displayOrderDemoData, inventoryOrderDemoData } from "@/lib/constants/order/OrderListDemoData";
-import type{ IOrderListQuery } from "@/types/order/order.types";
+// services/order/order.service.ts
+import axios from "axios";
+import { showToast } from "@/components/Toast";
+import type {
+  IOrderListQuery,
+  IOrderListResponse,
+  IInventoryOrderRow,
+  IDisplayOrderRow,
+  InventoryOrderStatus,
+} from "@/types/order/order.types";
+import { api } from "@/client/axios/client";
 
+function reportError(title: string, error: unknown) {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data?.message;
+    showToast.error(
+      title,
+      Array.isArray(message)
+        ? message.join(", ")
+        : (message ?? "Please try again."),
+    );
+  } else {
+    showToast.error(title, "Something went wrong.");
+  }
+}
 
 class OrderServices {
-  async listInventory(query: IOrderListQuery) {
-    await new Promise((r) => setTimeout(r, 300));
-    let filtered = [...inventoryOrderDemoData];
-
-    if (query.status !== "all") filtered = filtered.filter((o) => o.status === query.status);
-    if (query.search?.trim()) {
-      const s = query.search.trim().toLowerCase();
-      filtered = filtered.filter((o) => o.orderId.toLowerCase().includes(s));
+  async listInventory(
+    query: IOrderListQuery,
+  ): Promise<IOrderListResponse<IInventoryOrderRow>> {
+    try {
+      const { data } = await api.get("/admin/orders/inventory", {
+        params: query,
+      });
+      return data;
+    } catch (error) {
+      // reportError("Failed to load inventory orders", error);
+      throw error;
     }
-
-    if (query.search?.trim()) return { data: filtered, total: filtered.length, page: 1, pageSize: filtered.length };
-
-    const start = (query.page - 1) * query.pageSize;
-    return { data: filtered.slice(start, start + query.pageSize), total: filtered.length, page: query.page, pageSize: query.pageSize };
   }
 
-  async listDisplay(query: IOrderListQuery) {
-    await new Promise((r) => setTimeout(r, 300));
-    let filtered = [...displayOrderDemoData];
-
-    if (query.status !== "all") filtered = filtered.filter((o) => o.status === query.status);
-    if (query.search?.trim()) {
-      const s = query.search.trim().toLowerCase();
-      filtered = filtered.filter((o) => o.orderId.toLowerCase().includes(s));
+  async listDisplay(
+    query: IOrderListQuery,
+  ): Promise<IOrderListResponse<IDisplayOrderRow>> {
+    try {
+      const { data } = await api.get("/admin/orders/display", {
+        params: query,
+      });
+      return data;
+    } catch (error) {
+      // reportError("Failed to load display orders", error);
+      throw error;
     }
-
-    if (query.search?.trim()) return { data: filtered, total: filtered.length, page: 1, pageSize: filtered.length };
-
-    const start = (query.page - 1) * query.pageSize;
-    return { data: filtered.slice(start, start + query.pageSize), total: filtered.length, page: query.page, pageSize: query.pageSize };
   }
 
-  async updateInventoryStatus(orderId: string, status: string) {
-    await new Promise((r) => setTimeout(r, 300));
-    console.log("update inventory order status", orderId, status);
-    return { success: true };
+  async getInventoryDetail(orderId: string) {
+    try {
+      const { data } = await api.get(`/admin/orders/inventory/${orderId}`);
+      return data;
+    } catch (error) {
+      // reportError("Failed to load order detail", error);
+      throw error;
+    }
+  }
+
+  async getDisplayDetail(orderId: string) {
+    try {
+      const { data } = await api.get(`/admin/orders/display/${orderId}`);
+      return data;
+    } catch (error) {
+      // reportError("Failed to load order detail", error);
+      throw error;
+    }
+  }
+
+  async updateInventoryStatus(orderId: string, status: InventoryOrderStatus) {
+    try {
+      const { data } = await api.patch(
+        `/admin/orders/inventory/${orderId}/status`,
+        { status },
+      );
+      return data;
+    } catch (error) {
+      // reportError("Failed to update order status", error);
+      throw error;
+    }
   }
 }
 
