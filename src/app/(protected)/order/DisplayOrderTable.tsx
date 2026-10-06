@@ -31,7 +31,7 @@ export default function DisplayOrderTable({
   function renderRow(order: IDisplayOrderRow) {
     const status = getDisplayStatusDisplay(
       order.status,
-      order.completionReason,
+      order?.completionReason,
     );
 
     return (
@@ -53,10 +53,10 @@ export default function DisplayOrderTable({
           </span>
         </td>
         <td className="px-4 py-3 text-table-cell-text whitespace-nowrap text-xs">
-          {formatTimestamp(order.confirmationDeadline)}
+          {formatTimestamp(order?.confirmationDeadline)}
         </td>
         <td className="px-4 py-3 text-table-cell-text whitespace-nowrap text-xs">
-          {formatTimestamp(order.orderDate)}
+          {formatTimestamp(order?.orderDate)}
         </td>
         <td className="px-4 py-3 text-center">
           <button
@@ -66,7 +66,7 @@ export default function DisplayOrderTable({
             }}
             className="px-3 py-1.5 rounded-sm text-xs font-medium border border-green-500 text-app-foreground bg-app-background transition-colors hover:bg-green-700 hover:text-white hover:border-green-700"
           >
-            View details
+            Details
           </button>
         </td>
       </>
