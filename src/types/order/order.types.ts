@@ -1,9 +1,14 @@
-
-export type OrderBucket = "inventory" | "display";
-export type InventoryOrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
-export type DisplayOrderStatus = "pending" | "processing" | "delivered" | "cancelled";
-export type PaymentMethod = "stripe" | "khalti" | "esewa";
-export type DisplayCompletionReason = "vendor_confirmed" | "timeout" | null;
+// types/order/order.types.ts
+export type InventoryOrderStatus =
+  | "packaging"
+  | "ontheway"
+  | "delivered"
+  | "failed";
+export type DisplayOrderStatus =
+  | "pending"
+  | "processing"
+  | "delivered"
+  | "cancelled";
 
 export interface IInventoryOrderRow {
   orderId: string;
@@ -11,27 +16,23 @@ export interface IInventoryOrderRow {
   totalItems: number;
   totalQuantity: number;
   discount: number | null;
-  paymentMethod: PaymentMethod;
   status: InventoryOrderStatus;
-  orderDate: string;
-  deliveryDate: string | null;
+  createdAt: string;
 }
 
 export interface IDisplayOrderRow {
   orderId: string;
   customerName: string;
-  farmName: string;
+  farmName: string | null;
   totalItems: number;
   totalQuantity: number;
   status: DisplayOrderStatus;
-  completionReason: DisplayCompletionReason;
-  confirmationDeadline: string;
-  orderDate: string;
+  confirmationDeadline: string | null;
+  createdAt: string;
 }
 
 export interface IOrderListQuery {
-  bucket: OrderBucket;
-  status: string; // scoped status value, "all" included
+  status: string;
   search?: string;
   page: number;
   pageSize: number;
@@ -43,3 +44,5 @@ export interface IOrderListResponse<T> {
   page: number;
   pageSize: number;
 }
+
+export type OrderBucket = "inventory" | "display";
