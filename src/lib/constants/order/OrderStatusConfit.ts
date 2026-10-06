@@ -2,18 +2,18 @@ import type{ DisplayOrderStatus, InventoryOrderStatus } from "@/types/order/orde
 
 
 export const inventoryStatusConfig: Record<InventoryOrderStatus, { label: string; badgeClass: string }> = {
-  processing: { label: "Processing", badgeClass: "bg-status-inprogress-bg text-status-inprogress-text" },
-  shipped: { label: "Shipped", badgeClass: "bg-brand-cta-soft text-brand-cta" },
+  packaging: { label: "Packaging", badgeClass: "bg-status-inprogress-bg text-status-inprogress-text" },
+  ontheway: { label: "Shipped", badgeClass: "bg-brand-cta-soft text-brand-cta" },
   delivered: { label: "Delivered", badgeClass: "bg-status-approved-bg text-status-approved-text" },
-  cancelled: { label: "Cancelled", badgeClass: "bg-status-rejected-bg text-status-rejected-text" },
+  failed: { label: "Failed", badgeClass: "bg-status-rejected-bg text-status-rejected-text" },
 };
 
 // Explicit state machine — only these transitions are ever allowed
 export const inventoryStatusTransitions: Record<InventoryOrderStatus, InventoryOrderStatus[]> = {
-  processing: ["shipped", "cancelled"],
-  shipped: ["delivered", "cancelled"],
+  packaging: ["ontheway", "failed"],
+  ontheway: ["delivered", "failed"],
   delivered: [],
-  cancelled: [],
+  failed: [],
 };
 
 export const displayStatusConfig: Record<DisplayOrderStatus, { label: string; badgeClass: string }> = {
