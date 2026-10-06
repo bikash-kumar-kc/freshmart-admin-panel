@@ -1,19 +1,21 @@
-// orders/CustomerInfoCard.tsx
-import { User, MapPin, Mail, Phone } from "lucide-react";
+// app/(protected)/order/[bucket]/[orderId]/CustomerInfoCard.tsx
+import { User, Mail, Phone } from "lucide-react";
 import { DetailSection } from "../../../vendors/[farmId]/DetailsSection";
-import { ICustomerInfo } from "@/types/order/orderDetail.types";
 
+interface CustomerInfoCardProps {
+  customer: { id: string; name: string | null; email: string } | null;
+}
 
-export function CustomerInfoCard({ customer }: { customer: ICustomerInfo }) {
+export function CustomerInfoCard({ customer }: CustomerInfoCardProps) {
   return (
     <DetailSection
       title="Customer Information"
       items={[
-        { icon: User, label: "Customer ID", value: customer.customerId },
-        { icon: User, label: "Customer Name", value: customer.customerName },
-        { icon: MapPin, label: "Address", value: customer.address },
-        { icon: Mail, label: "Email", value: customer.email },
-        { icon: Phone, label: "Phone", value: customer.phone },
+        { icon: User, label: "Customer ID", value: customer?.id ?? "—" },
+        { icon: User, label: "Customer Name", value: customer?.name ?? "—" },
+        { icon: Mail, label: "Email", value: customer?.email ?? "—" },
+        // FAKE — no phone field on `users` table
+        { icon: Phone, label: "Phone", value: "+977-9800000000" },
       ]}
     />
   );
