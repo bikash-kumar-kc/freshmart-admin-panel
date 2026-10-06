@@ -31,7 +31,7 @@ const AuthContextProvider = ({ children }: IProps) => {
         adminId: response.user.adminId,
       });
     } catch {
-      showToast.error("User is not logged in !");
+      // showToast.error("User is not logged in !");
     } finally {
       setIsLoading(false);
     }
