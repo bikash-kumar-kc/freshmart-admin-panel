@@ -1,10 +1,12 @@
 import {
-  DisplayCompletionReason,
+ 
   DisplayOrderStatus,
   InventoryOrderStatus,
   OrderBucket,
-  PaymentMethod,
 } from "./order.types";
+
+export type PaymentMethod = "stripe" | "khalti" | "esewa";
+export type DisplayCompletionReason = "vendor_confirmed" | "timeout" | null;
 
 export interface IOrderItemDetail {
   productId: string;
@@ -26,7 +28,7 @@ export interface ICustomerInfo {
 export interface IOrderDetail {
   orderId: string;
   type: OrderBucket;
-  status: InventoryOrderStatus | DisplayOrderStatus;
+  orderStatus: InventoryOrderStatus | DisplayOrderStatus;
   completionReason?: DisplayCompletionReason; // display only
   totalItems: number;
   totalQuantity: number;
