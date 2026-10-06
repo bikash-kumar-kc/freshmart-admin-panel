@@ -14,7 +14,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
 } from "../components/ui/chart";
-import { useDashboardSalesOverviewQuery } from "@/lib/hooks/useDashboardSalesOverview";
+
 import {
   Select,
   SelectContent,
@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { useDashboardSalesOverviewQuery } from "@/lib/hooks/dashboard/useDashboardSalesOverview";
 
 export const selectItemClass =
   "relative cursor-pointer rounded-sm py-2 pl-8 pr-3 text-sm  transition-colors " +
