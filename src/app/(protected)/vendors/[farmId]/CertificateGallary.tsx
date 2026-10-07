@@ -14,6 +14,7 @@ import {
   CarouselPrevious,
 } from "@/components/components/ui/carousel";
 import { Expand } from "lucide-react";
+import ImageKitProviderImage from "@/providers/ImageKitProvider";
 
 export const cauroselArrowStyle =
   "hover:bg-green-200 border hover:border-green-500 text-black transition-colors";
@@ -47,12 +48,14 @@ export function CertificateGallery({
                 }}
                 className="group relative aspect-video rounded-sm overflow-hidden border border-app-border cursor-pointer"
               >
-                <Image
+                {/* <Image
                   src={src}
                   alt={`${title} ${index + 1}`}
                   fill
                   className="object-cover brightness-50 hover:brightness-100 transition-all"
-                />
+                /> */}
+
+                <ImageKitProviderImage src={src} />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                   <Expand
                     size={22}
