@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { MoreVertical, Pencil } from "lucide-react";
 import {
   DropdownMenu,
@@ -64,17 +63,21 @@ export function VendorProfileSection({
 
   return (
     <div className="bg-statcard-background border border-statcard-border rounded-sm overflow-hidden">
-      <div className="h-24 bg-gradient-to-r from-brand-primary-soft to-brand-cta-soft" />
+      <div className="h-24 bg-linear-to-r from-brand-primary-soft to-brand-cta-soft" />
 
       <div className="px-5 pb-5">
         <div className="flex items-end justify-between -mt-10">
           <div className="w-20 h-20 rounded-full border-4 border-statcard-background overflow-hidden bg-app-border relative shrink-0">
-            <Image
+            {/* <Image
               src={vendor.vendorImage}
               alt={vendor.farmOwner}
               fill
               className="object-cover"
-            />
+            /> */}
+
+            <div className="w-20 h-20 rounded-full border-4 border-statcard-background bg-brand-primary-soft text-brand-primary flex items-center justify-center text-2xl font-semibold shrink-0">
+              {vendor.farmOwner?.[0]?.toUpperCase() ?? "V"}
+            </div>
           </div>
 
           {vendor.status === "approved" && (
@@ -137,9 +140,7 @@ export function VendorProfileSection({
       >
         <AlertDialogContent className={appPrimaryColorOption + "rounded-sm"}>
           <AlertDialogHeader>
-            <AlertDialogTitle >
-              {pendingAction?.actionName}
-            </AlertDialogTitle>
+            <AlertDialogTitle>{pendingAction?.actionName}</AlertDialogTitle>
             <AlertDialogDescription className="hover:text-app-foreground transition-colors">
               {pendingAction?.confirmMessage}
             </AlertDialogDescription>
