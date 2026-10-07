@@ -23,6 +23,7 @@ import {
   useUnapproveVendorMutation,
   useVendorDetailQuery,
 } from "@/lib/hooks/vendor/vendorList.queries";
+import { VendorPopularProducts } from "./VendorPopularProducts";
 
 export default function VendorDetailPage() {
   const { farmId } = useParams<{ farmId: string }>();
@@ -43,7 +44,7 @@ export default function VendorDetailPage() {
     return <p className="text-sm text-app-muted-foreground">Loading...</p>;
   }
 
-  const vendor = data;
+  const { vendor, popularProducts } = data;
 
   return (
     <div className="space-y-5">
@@ -98,11 +99,11 @@ export default function VendorDetailPage() {
         />
       </Motion>
 
-      {/* {vendor.status === "approved" && (
+      {vendor.status === "approved" && (
         <Motion delay={0.55}>
           <VendorPopularProducts products={popularProducts} />
         </Motion>
-      )} */}
+      )}
       <Motion delay={0.6}>
         <CertificateGallery
           title="PAN/VAT Certificate"
