@@ -1,50 +1,80 @@
-import { vendorListDemoData } from "@/lib/constants/vendors/VendorListDemoData";
-import { IVendorListQuery, IVendorListResponse } from "@/types/vendors/vendorList.types";
+// services/Vendors/VendorList.service.ts
+import axios from "axios";
 
+import { showToast } from "@/components/Toast";
+import type {
+  IVendorListQuery,
+  IVendorListResponse,
 
-class VendorServices {
-  async list(query: IVendorListQuery): Promise<IVendorListResponse> {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+} from "@/types/vendors/vendorList.types";
+import { api } from "@/client/axios/client";
+import { IVendorDetail } from "@/types/vendors/vendorDetails.types";
 
-    let filtered = vendorListDemoData;
-
-    // Deleted vendors are excluded unless explicitly selected
-    if (query.status === "all") {
-      filtered = filtered.filter((v) => v.status !== "deleted");
-    } else {
-      filtered = filtered.filter((v) => v.status === query.status);
-    }
-
-    if (query.search?.trim()) {
-      const q = query.search.trim().toLowerCase();
-      filtered = filtered.filter(
-        (v) =>
-          v.farmId.toLowerCase().includes(q) ||
-          v.farmName.toLowerCase().includes(q),
-      );
-    }
-
-    // Search results are returned in full, no pagination — matches "no pagination while searching"
-    if (query.search?.trim()) {
-      return {
-        data: filtered,
-        total: filtered.length,
-        page: 1,
-        pageSize: filtered.length,
-      };
-    }
-
-    const start = (query.page - 1) * query.pageSize;
-    const paginated = filtered.slice(start, start + query.pageSize);
-
-    return {
-      data: paginated,
-      total: filtered.length,
-      page: query.page,
-      pageSize: query.pageSize,
-    };
+function reportError(title: string, error: unknown) {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data?.message;
+    showToast.error(
+      title,
+      Array.isArray(message)
+        ? message.join(", ")
+        : (message ?? "Please try again."),
+    );
+  } else {
+    showToast.error(title, "Something went wrong.");
   }
 }
 
-const vendorServices = new VendorServices();
-export default vendorServices;
+class VendorListServices {
+  async list(query: IVendorListQuery): Promise<IVendorListResponse> {
+    try {
+      const { data } = await api.get("/admin/vendor", { params: query });
+      return data;
+    } catch (error) {
+      reportError("Failed to load vendors", error);
+      throw error;
+    }
+  }
+
+  async getDetail(farmId: string): Promise<IVendorDetail> {
+    try {
+      const { data } = await api.get(`/admin/vendor/${farmId}`);
+      return data;
+    } catch (error) {
+      reportError("Failed to load vendor detail", error);
+      throw error;
+    }
+  }
+
+  async approve(farmId: string) {
+    try {
+      const { data } = await api.patch(`/admin/vendor/${farmId}/approve`);
+      return data;
+    } catch (error) {
+      reportError("Failed to approve vendor", error);
+      throw error;
+    }
+  }
+
+  async unapprove(farmId: string) {
+    try {
+      const { data } = await api.patch(`/admin/vendor/${farmId}/unapprove`);
+      return data;
+    } catch (error) {
+      reportError("Failed to unapprove vendor", error);
+      throw error;
+    }
+  }
+
+  async softDelete(farmId: string) {
+    try {
+      const { data } = await api.patch(`/admin/vendor/${farmId}/delete`);
+      return data;
+    } catch (error) {
+      reportError("Failed to delete vendor", error);
+      throw error;
+    }
+  }
+}
+
+const vendorListServices = new VendorListServices();
+export default vendorListServices;
