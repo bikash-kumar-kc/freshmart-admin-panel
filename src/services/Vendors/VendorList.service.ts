@@ -8,7 +8,7 @@ import type {
 
 } from "@/types/vendors/vendorList.types";
 import { api } from "@/client/axios/client";
-import { IVendorDetail } from "@/types/vendors/vendorDetails.types";
+import { IVendorDetail, IVendorDetailResponse } from "@/types/vendors/vendorDetails.types";
 
 function reportError(title: string, error: unknown) {
   if (axios.isAxiosError(error)) {
@@ -35,7 +35,7 @@ class VendorListServices {
     }
   }
 
-  async getDetail(farmId: string): Promise<IVendorDetail> {
+  async getDetail(farmId: string): Promise<IVendorDetailResponse> {
     try {
       const { data } = await api.get(`/admin/vendor/${farmId}`);
       return data;
