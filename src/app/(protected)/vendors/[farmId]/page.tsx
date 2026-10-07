@@ -2,7 +2,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import {
   User,
   Mail,
@@ -13,41 +12,38 @@ import {
   FileText,
 } from "lucide-react";
 import PageHeading from "@/components/PageHeading";
-import { useVendorDetailQuery } from "@/lib/hooks/vendor/useVendorDetials";
-import { vendorKeys } from "@/lib/hooks/vendor/vendorList.queries";
 import { VendorProfileSection } from "./ProfileSectiont";
 import { DetailSection } from "./DetailsSection";
 import { CertificateGallery } from "./CertificateGallary";
-import { VendorPopularProducts } from "./VendorPopularProducts";
 import { VendorBottomActionBar } from "./VendorButtomActionBar";
 import Motion from "@/lib/motion/motion";
+import {
+  useApproveVendorMutation,
+  useDeleteVendorMutation,
+  useUnapproveVendorMutation,
+  useVendorDetailQuery,
+} from "@/lib/hooks/vendor/vendorList.queries";
 
 export default function VendorDetailPage() {
   const { farmId } = useParams<{ farmId: string }>();
-  const queryClient = useQueryClient();
+
   const { data, isLoading } = useVendorDetailQuery(farmId);
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: vendorKeys.all });
-  }
-  function handleApprove() {
-    console.log("approve", farmId);
-    invalidate();
-  }
-  function handleUnapprove() {
-    console.log("unapprove", farmId);
-    invalidate();
-  }
-  function handleDelete() {
-    console.log("delete", farmId);
-    invalidate();
-  }
+  // const { data, isLoading } = useVendorListQuery({ search, status, page, pageSize });
+
+  const approveMutation = useApproveVendorMutation();
+  const unapproveMutation = useUnapproveVendorMutation();
+  const deleteMutation = useDeleteVendorMutation();
+
+  const handleApprove = (id: string) => approveMutation.mutateAsync(id);
+  const handleUnapprove = (id: string) => unapproveMutation.mutateAsync(id);
+  const handleDelete = (id: string) => deleteMutation.mutateAsync(id);
 
   if (isLoading || !data) {
     return <p className="text-sm text-app-muted-foreground">Loading...</p>;
   }
 
-  const { vendor, popularProducts } = data;
+  const vendor = data;
 
   return (
     <div className="space-y-5">
@@ -61,9 +57,9 @@ export default function VendorDetailPage() {
       <Motion delay={0.35}>
         <VendorProfileSection
           vendor={vendor}
-          onApprove={handleApprove}
-          onUnapprove={handleUnapprove}
-          onDelete={handleDelete}
+          onApprove={() => handleApprove(vendor.farmId)}
+          onUnapprove={() => handleUnapprove(vendor.farmId)}
+          onDelete={() => handleDelete(vendor.farmId)}
         />
       </Motion>
 
@@ -102,11 +98,11 @@ export default function VendorDetailPage() {
         />
       </Motion>
 
-      {vendor.status === "approved" && (
+      {/* {vendor.status === "approved" && (
         <Motion delay={0.55}>
           <VendorPopularProducts products={popularProducts} />
         </Motion>
-      )}
+      )} */}
       <Motion delay={0.6}>
         <CertificateGallery
           title="PAN/VAT Certificate"
@@ -123,8 +119,8 @@ export default function VendorDetailPage() {
       <Motion delay={0.7}>
         <VendorBottomActionBar
           vendor={vendor}
-          onApprove={handleApprove}
-          onDelete={handleDelete}
+          onApprove={() => handleApprove(vendor.farmId)}
+          onDelete={() => handleDelete(vendor.farmId)}
         />
       </Motion>
     </div>
