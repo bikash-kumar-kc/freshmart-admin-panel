@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { VendorStatus } from "@/types/vendors/vendorList.types";
 import {
+  useApproveVendorMutation,
+  useDeleteVendorMutation,
+  useUnapproveVendorMutation,
   useVendorListQuery,
-  vendorKeys,
 } from "@/lib/hooks/vendor/vendorList.queries";
 import VendorPageHeader from "./VendorPageHeader";
 import ResponsiveVendorList from "./VendorResponsiveList";
@@ -18,8 +19,6 @@ export default function VendorsPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const queryClient = useQueryClient();
-
   const { data, isLoading } = useVendorListQuery({
     search,
     status,
@@ -27,24 +26,14 @@ export default function VendorsPage() {
     pageSize,
   });
 
-  const isSearching = search.trim().length > 0;
+  const approveMutation = useApproveVendorMutation();
+  const unapproveMutation = useUnapproveVendorMutation();
+  const deleteMutation = useDeleteVendorMutation();
 
-  // Demo-data mutations — replace method bodies with real mutations once the endpoint exists
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: vendorKeys.all });
-  }
-  function handleApprove(id: string) {
-    console.log("approve", id);
-    invalidate();
-  }
-  function handleUnapprove(id: string) {
-    console.log("unapprove", id);
-    invalidate();
-  }
-  function handleDelete(id: string) {
-    console.log("delete", id);
-    invalidate();
-  }
+  const isSearching = search.trim().length > 0;
+  const handleApprove = (id: string) => approveMutation.mutateAsync(id);
+  const handleUnapprove = (id: string) => unapproveMutation.mutateAsync(id);
+  const handleDelete = (id: string) => deleteMutation.mutateAsync(id);
 
   return (
     <div className="bg-statcard-background border border-statcard-border rounded-md p-3 shadow-lg min-w-45">
