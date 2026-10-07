@@ -41,7 +41,7 @@ export default function TopProductsTable({
   }
 
   function renderRow(product: ITopProduct) {
-    const status = stockStatusConfig[product.status];
+    // const status = stockStatusConfig[product.status];
     return (
       <>
         <td className="px-4 py-3">
@@ -61,23 +61,24 @@ export default function TopProductsTable({
         </td>
         <td className="px-4 py-3 text-table-cell-text">{product.productId}</td>
         <td className="px-4 py-3 text-right text-table-cell-text">
-          {product.sales.toLocaleString()}
+          {/* {product?.sales?.toLocaleString()} */}
         </td>
         <td className="px-4 py-3 text-right text-table-cell-text">
-          ${product.earning.toLocaleString()}
+          {/* ${product?.earning.toLocaleString()} */}
         </td>
         <td className="px-4 py-3 text-right text-table-cell-text">
-          {product.stock}
+          {/* {product?.stock} */}
         </td>
         <td className="px-4 py-3 text-center">
           <span
-            className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${status.badgeClass}`}
+            // className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${status.badgeClass}`}
+            className={`text-[11px] font-medium px-2 py-0.5 rounded-full`}
           >
-            {status.label}
+            {product.type}
           </span>
         </td>
         <td className="px-4 py-3 text-right">
-          {needsAction(product.status) && (
+          {needsAction(product?.status) && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
