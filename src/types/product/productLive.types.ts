@@ -22,7 +22,6 @@ export interface IProductLiveFilters {
   stock: ProductStockStatus | "all";
   live: ProductLiveStatus | "all";
   type: ProductLiveType | "all";
-  sort: SalesSort;
 }
 
 export interface IProductLiveQuery extends IProductLiveFilters {
