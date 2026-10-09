@@ -3,19 +3,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import { IProductListingFilters } from "@/types/product/productListing/productlisting.types";
 import {
-  productListingKeys,
+  useApproveProductListingMutation,
+  useNotifyListingVendorMutation,
   useProductListingQuery,
 } from "@/lib/hooks/product/useProductListing";
 import { ProductListingHeader } from "./ProductListingHeader";
 import ResponsiveProductListingTable from "./ProductListingSwitcher";
 import Pagination from "@/components/Pagination";
+import { useDebouncedValue } from "@/lib/hooks/useDebounce";
 
 export default function ProductListingPage() {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<IProductListingFilters>({
@@ -23,32 +23,24 @@ export default function ProductListingPage() {
     type: "all",
     sort: "new_to_old",
   });
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
+  const debouncedSearch = useDebouncedValue(search, 500);
   const { data, isLoading } = useProductListingQuery({
-    search,
     ...filters,
+    search: debouncedSearch,
     page,
     pageSize,
   });
-  const isSearching = search.trim().length > 0;
+  const approve = useApproveProductListingMutation();
+  const notifyVendor = useNotifyListingVendorMutation();
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: productListingKeys.all });
-  }
-  function handleApprove(id: string) {
-    console.log("approve product", id);
-    invalidate();
-  }
   function handleGenerateQuotation(vendorId: string, id: string) {
     router.push(
       `/quotation/createQuotation?vendorId=${vendorId}&productId=${id}`,
     );
-  }
-  function handleNotifyVendor(id: string) {
-    console.log("notify vendor for product", id);
-    invalidate();
   }
 
   return (
@@ -68,12 +60,12 @@ export default function ProductListingPage() {
       <ResponsiveProductListingTable
         data={data?.data ?? []}
         isLoading={isLoading}
-        onApprove={handleApprove}
         onGenerateQuotation={handleGenerateQuotation}
-        onNotifyVendor={handleNotifyVendor}
+        onApprove={(id) => approve.mutateAsync(id)}
+        onNotifyVendor={(id) => notifyVendor.mutateAsync(id)}
       />
 
-      {!isSearching && data && (
+      {data && (
         <Pagination
           page={page}
           pageSize={pageSize}
