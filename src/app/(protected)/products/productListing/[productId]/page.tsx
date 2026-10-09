@@ -2,9 +2,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import {
-  productListingKeys,
+  useApproveProductListingMutation,
+  useNotifyListingVendorMutation,
   useProductListingDetailQuery,
 } from "@/lib/hooks/product/useProductListing";
 import { ProductListingPageHeading } from "./Heading";
@@ -16,20 +16,10 @@ import { ProductBottomActionBar } from "./Action";
 
 export default function ProductListingDetailPage() {
   const { productId } = useParams<{ productId: string }>();
-  const queryClient = useQueryClient();
   const { data: product, isLoading } = useProductListingDetailQuery(productId);
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: productListingKeys.all });
-  }
-  function handleApprove() {
-    console.log("approve product", productId);
-    invalidate();
-  }
-  function handleNotifyVendor() {
-    console.log("notify vendor for product", productId);
-    invalidate();
-  }
+  const approve = useApproveProductListingMutation();
+  const notifyVendor = useNotifyListingVendorMutation();
 
   if (isLoading || !product) {
     return <p className="text-sm text-app-muted-foreground">Loading...</p>;
@@ -52,8 +42,8 @@ export default function ProductListingDetailPage() {
 
       <ProductBottomActionBar
         product={product}
-        onApprove={handleApprove}
-        onNotifyVendor={handleNotifyVendor}
+        onApprove={() => approve.mutateAsync(productId)}
+        onNotifyVendor={() => notifyVendor.mutateAsync(productId)}
       />
     </div>
   );
