@@ -9,22 +9,27 @@ import Pagination from "@/components/Pagination";
 import { IProductLiveFilters } from "@/types/product/productLive.types";
 import {
   productLiveKeys,
+  useNotifyLiveVendorMutation,
   useProductLiveQuery,
+  useUpdateProductLiveStatusMutation,
 } from "@/lib/hooks/product/useProductLive";
 import { ProductLiveHeader } from "./ProductLiveHeader";
 import ResponsiveProductLiveTable from "./ResponsiveProductTableSwitch";
+import { useDebouncedValue } from "@/lib/hooks/useDebounce";
 
 export default function ProductLivePage() {
   const router = useRouter();
   const queryClient = useQueryClient();
-
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 500);
   const [filters, setFilters] = useState<IProductLiveFilters>({
     stock: "all",
     live: "all",
     type: "all",
-    sort: "high_to_low",
   });
+
+  const updateStatus = useUpdateProductLiveStatusMutation();
+  const notifyVendor = useNotifyLiveVendorMutation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
@@ -34,21 +39,11 @@ export default function ProductLivePage() {
     page,
     pageSize,
   });
-  const isSearching = search.trim().length > 0;
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: productLiveKeys.all });
-  }
-  function handleToggleLive(id: string, next: "live" | "draft") {
-    console.log("toggle live", id, next);
-    invalidate();
-  }
-  function handleGenerateQuotation(vendorId:string,id: string) {
-    router.push(`/quotation/createQuotation?vendorId=${vendorId}&productId=${id}`);
-  }
-  function handleNotifyVendor(id: string) {
-    console.log("notify vendor", id);
-    invalidate();
+  function handleGenerateQuotation(vendorId: string, id: string) {
+    router.push(
+      `/quotation/createQuotation?vendorId=${vendorId}&productId=${id}`,
+    );
   }
 
   return (
@@ -68,12 +63,16 @@ export default function ProductLivePage() {
       <ResponsiveProductLiveTable
         data={data?.data ?? []}
         isLoading={isLoading}
-        onToggleLive={handleToggleLive}
+        // onToggleLive={handleToggleLive}
+        onToggleLive={(id, next) =>
+          updateStatus.mutateAsync({ productId: id, status: next })
+        }
         onGenerateQuotation={handleGenerateQuotation}
-        onNotifyVendor={handleNotifyVendor}
+        // onNotifyVendor={handleNotifyVendor}
+        onNotifyVendor={(id) => notifyVendor.mutateAsync(id)}
       />
 
-      {!isSearching && data && (
+      {data && (
         <Pagination
           page={page}
           pageSize={pageSize}
