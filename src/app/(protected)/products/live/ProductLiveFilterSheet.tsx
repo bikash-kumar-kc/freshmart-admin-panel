@@ -46,7 +46,8 @@ function FilterGroup<T extends string>({
   options,
   value,
   onChange,
-}: FilterGroupProps<T>) {
+  disabled,
+}: FilterGroupProps<T> & { disabled?: boolean }) {
   return (
     <div className="flex flex-wrap gap-2">
       {options.map((opt) => (
@@ -57,7 +58,8 @@ function FilterGroup<T extends string>({
             value === opt.value
               ? styles.filterGroupButtonActive
               : styles.filterGroupButtonInactive
-          }`}
+          } disabled:opacity-40 disabled:cursor-not-allowed`}
+          disabled={disabled}
         >
           {opt.label}
         </button>
@@ -123,6 +125,7 @@ export function ProductLiveFilterSheet({
               ]}
               value={draft.stock}
               onChange={(stock) => setDraft((prev) => ({ ...prev, stock }))}
+              disabled={draft.live === "draft"}
             />
           </div>
 
@@ -137,7 +140,13 @@ export function ProductLiveFilterSheet({
                 { label: "Live", value: "live" },
               ]}
               value={draft.live}
-              onChange={(live) => setDraft((prev) => ({ ...prev, live }))}
+              onChange={(live) =>
+                setDraft((prev) => ({
+                  ...prev,
+                  live,
+                  stock: live === "draft" ? "all" : prev.stock,
+                }))
+              }
             />
           </div>
 
@@ -165,8 +174,7 @@ export function ProductLiveFilterSheet({
               setDraft({
                 stock: "all",
                 live: "all",
-                type: "all",
-                sort: draft.sort,
+                type: "all"
               })
             }
           >
