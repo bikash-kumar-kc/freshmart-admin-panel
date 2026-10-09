@@ -4,14 +4,14 @@ export type ProductListingType = "inventory" | "display";
 export type CreatedAtSort = "new_to_old" | "old_to_new";
 
 export interface IProductListingRow {
-  vendorId:string;
+  vendorId: string;
   productId: string;
   farmName: string;
   productName: string; // pre-formatted by the API, e.g. "Apple (500g)"
   localName: string;
   type: ProductListingType;
-  quantity: number;
-  unitPrice: number;
+  quantity: string; // "100", or "(100, 50)" for several variants
+  unitPrice: string; // same shape
   status: ProductListingStatus;
   createdAt: string; // ISO
 }
@@ -21,6 +21,11 @@ export interface IProductListingFilters {
   type: ProductListingType | "all";
   sort: CreatedAtSort;
 }
+
+
+
+
+
 
 export interface IProductListingQuery extends IProductListingFilters {
   search?: string;
