@@ -6,7 +6,7 @@ import PageHeading from "@/components/PageHeading";
 import SearchComponent from "@/components/SearchComponent";
 import { ProductLiveFilterSheet } from "./ProductLiveFilterSheet";
 import { IProductLiveFilters } from "@/types/product/productLive.types";
-import { ProductLiveSortSelect } from "./ProductLiveSortSelect";
+// import { ProductLiveSortSelect } from "./ProductLiveSortSelect";
 
 
 interface ProductLiveHeaderProps {
@@ -36,10 +36,10 @@ export function ProductLiveHeader({ onSearchChange, filters, onFiltersApply }: P
         />
 
         <div className="flex items-center gap-2">
-          <ProductLiveSortSelect
+          {/* <ProductLiveSortSelect
             value={filters.sort}
             onChange={(sort) => onFiltersApply({ ...filters, sort })}
-          />
+          /> */}
           <ProductLiveFilterSheet filters={filters} onApply={onFiltersApply} />
         </div>
       </div>
