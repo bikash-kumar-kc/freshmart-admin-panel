@@ -31,6 +31,11 @@ export function CertificateGallery({
 
   if (images.length === 0) return null;
 
+  // if(images.includes(null))
+  if (images.length === 0 || images.some((image) => image === null)) {
+    return null;
+  }
+
   return (
     <div className="bg-statcard-background border border-statcard-border rounded-sm p-5">
       <h3 className="text-sm font-semibold text-app-foreground mb-4">
