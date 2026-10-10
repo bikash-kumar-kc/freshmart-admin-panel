@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageHeading from "@/components/PageHeading";
-import { useAuthContext } from "@/providers/AuthContextProvider";
 import {
   createQuotationFormSchema,
   CreateQuotationFormValues,
@@ -15,9 +14,8 @@ import {
 import {
   useApprovedProductsByVendorQuery,
   useApprovedVendorsQuery,
-  useCreateQuotationMutation,
+  useCreateQuotationsMutation,
 } from "@/lib/hooks/quotation/createquotation.queries";
-import { ICreateQuotationPayload } from "@/types/quotation/createquotation.types";
 import { VendorCombobox } from "./VendorCombo";
 import { ProductMultiCombobox } from "./ProductMultiCombo";
 import { QuotationProductCard } from "./QuotationProductCard";
@@ -25,14 +23,12 @@ import { useEffect } from "react";
 
 export default function CreateQuotationPage() {
   const router = useRouter();
-  const { user } = useAuthContext();
-
   const searchParams = useSearchParams();
 
   const vendorSearchId = searchParams.get("vendorId");
   const productId = searchParams.get("productId");
 
-  const { data: vendors = [] } = useApprovedVendorsQuery();
+  // const { data: vendors = [] } = useApprovedVendorsQuery();
 
   const form = useForm<FormInput, any, FormOutput>({
     resolver: zodResolver(createQuotationFormSchema),
@@ -48,9 +44,9 @@ export default function CreateQuotationPage() {
   } = form;
 
   const vendorId = watch("vendorId");
-  const { data: availableProducts = [] } = useApprovedProductsByVendorQuery(
-    vendorId || null,
-  );
+  // const { data: availableProducts = [] } = useApprovedProductsByVendorQuery(
+  //   vendorId || null,
+  // );
 
   const {
     fields: productFields,
@@ -61,7 +57,7 @@ export default function CreateQuotationPage() {
     name: "products",
   });
 
-  const createQuotationMutation = useCreateQuotationMutation();
+  const createQuotationMutation = useCreateQuotationsMutation();
 
   function handleVendorChange(newVendorId: string) {
     setValue("vendorId", newVendorId);
@@ -86,22 +82,28 @@ export default function CreateQuotationPage() {
     }
   }
 
-  async function onSubmit(values: CreateQuotationFormValues) {
-    const payloads: ICreateQuotationPayload[] = values.products.map(
-      (product) => ({
-        vendorId: values.vendorId,
-        adminId: user?.id ?? "",
-        productListingId: product.productListingId,
-        variants: product.variants.map((v) => ({
-          variantId: v.variantId,
-          adminSuggested: v.requestedPrice,
-          quantity: v.quantity,
-        })),
-      }),
-    );
+  const createQuotations = useCreateQuotationsMutation();
+  const { data: vendors = [] } = useApprovedVendorsQuery();
+  const { data: availableProducts = [] } = useApprovedProductsByVendorQuery(
+    vendorId || null,
+  );
 
-    await createQuotationMutation.mutateAsync(payloads);
-    router.push("/quotation");
+  function onSubmit(values: CreateQuotationFormValues) {
+    createQuotations.mutate(
+      {
+        vendorId: values.vendorId,
+        // no adminId: the server reads it from the token
+        quotations: values.products.map((p) => ({
+          productListingId: p.productListingId,
+          variants: p.variants.map((v) => ({
+            variantId: v.variantId,
+            adminSuggested: v.requestedPrice,
+            quantity: v.quantity,
+          })),
+        })),
+      },
+      { onSuccess: () => router.push("/quotation") },
+    );
   }
 
   useEffect(() => {
