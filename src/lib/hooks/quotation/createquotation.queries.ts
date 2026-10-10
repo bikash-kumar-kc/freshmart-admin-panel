@@ -1,7 +1,12 @@
+// lib/hooks/quotation/createquotation.queries.ts
+"use client";
 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import createQuotationServices from "@/services/quotation/createquotation.service";
-import type{ ICreateQuotationPayload } from "@/types/quotation/createquotation.types";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { quotationKeys } from "./quotation.queries";
+import { showToast } from "@/components/Toast";
+import { getApiErrorMessage } from "@/lib/utilis/apiError";
+import { ICreateQuotationsPayload } from "@/types/quotation/quotation.types";
 
 
 export const createQuotationKeys = {
@@ -24,11 +29,15 @@ export function useApprovedProductsByVendorQuery(vendorId: string | null) {
   });
 }
 
-// Fires one POST per product, per the "new quotation for each product" rule
-export function useCreateQuotationMutation() {
+export function useCreateQuotationsMutation() {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payloads: ICreateQuotationPayload[]) => {
-      return Promise.all(payloads.map((p) => createQuotationServices.create(p)));
+    mutationFn: (payload: ICreateQuotationsPayload) => createQuotationServices.create(payload),
+    onSuccess: (_data, payload) => {
+      queryClient.invalidateQueries({ queryKey: [...quotationKeys.all, "list"] });
+      const n = payload.quotations.length;
+      showToast.success("Quotations sent", `${n} quotation${n > 1 ? "s" : ""} sent to the vendor.`);
     },
+    onError: (error) => showToast.error("Failed to create quotations", getApiErrorMessage(error)),
   });
 }
