@@ -1,22 +1,25 @@
-import { approvedVendorsDemoData, getApprovedProductsByVendorDemoData } from "@/lib/constants/quotation/createQuotation/createQuotationDemoData";
-import { ICreateQuotationPayload } from "@/types/quotation/createquotation.types";
 
+// services/quotation/createquotation.service.ts
+import { api as client } from "@/client/axios/client";
+import type {
+  IApprovedVendorOption, IApprovedProductOption,
+} from "@/types/quotation/createquotation.types";
+import { ICreateQuotationsPayload } from "@/types/quotation/quotation.types";
 
 class CreateQuotationServices {
-  async getApprovedVendors() {
-    await new Promise((r) => setTimeout(r, 200));
-    return approvedVendorsDemoData;
+  async getApprovedVendors(): Promise<IApprovedVendorOption[]> {
+    const { data } = await client.get("/admin-quotations/options/vendors");
+    return data;
   }
 
-  async getApprovedProductsByVendor(vendorId: string) {
-    await new Promise((r) => setTimeout(r, 200));
-    return getApprovedProductsByVendorDemoData(vendorId);
+  async getApprovedProductsByVendor(vendorId: string): Promise<IApprovedProductOption[]> {
+    const { data } = await client.get(`/admin-quotations/options/vendors/${vendorId}/products`);
+    return data;
   }
 
-  async create(payload: ICreateQuotationPayload) {
-    await new Promise((r) => setTimeout(r, 300));
-    console.log("POST /admin/quotation", payload);
-    return { success: true };
+  async create(payload: ICreateQuotationsPayload) {
+    const { data } = await client.post("/admin-quotations", payload);
+    return data;
   }
 }
 
