@@ -1,8 +1,6 @@
-
 "use client";
 
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 
 import Pagination from "@/components/Pagination";
 import {
@@ -10,41 +8,34 @@ import {
   QuotationSubStatus,
 } from "@/types/quotation/quotation.types";
 import {
-  quotationListKeys,
+  useApproveQuotationMutation,
+  useCancelQuotationMutation,
   useQuotationListQuery,
 } from "@/lib/hooks/quotation/quotation.queries";
 import { QuotationListHeader } from "./QuotationListHeader";
 import ResponsiveQuotationListTable from "./ResponsiveQuotationTable";
+import { useDebouncedValue } from "@/lib/hooks/useDebounce";
 
 export default function QuotationListPage() {
-  const queryClient = useQueryClient();
-
-  const [bucket, setBucket] = useState<QuotationPrimaryBucket>("approved"); // default screen = Approved
+  const [bucket, setBucket] = useState<QuotationPrimaryBucket>("approved");
   const [subStatus, setSubStatus] = useState<QuotationSubStatus>("all");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
+  const debouncedSearch = useDebouncedValue(search, 500);
   const { data, isLoading } = useQuotationListQuery({
     bucket,
     subStatus,
-    search,
+    search: debouncedSearch,
     page,
     pageSize,
   });
-  const isSearching = search.trim().length > 0;
 
-  function invalidate() {
-    queryClient.invalidateQueries({ queryKey: quotationListKeys.all });
-  }
-  function handleCancel(id: string) {
-    console.log("cancel quotation", id);
-    invalidate();
-  }
-  function handleApprove(id: string) {
-    console.log("approve quotation", id);
-    invalidate();
-  }
+  console.log(data);
+
+  const cancelQuotation = useCancelQuotationMutation();
+  const approveQuotation = useApproveQuotationMutation();
 
   return (
     <div>
@@ -69,11 +60,11 @@ export default function QuotationListPage() {
       <ResponsiveQuotationListTable
         data={data?.data ?? []}
         isLoading={isLoading}
-        onCancel={handleCancel}
-        onApprove={handleApprove}
+        onCancel={(id) => cancelQuotation.mutateAsync(id).catch(() => {})}
+        onApprove={(id) => approveQuotation.mutateAsync(id).catch(() => {})}
       />
 
-      {!isSearching && data && (
+      {data && (
         <Pagination
           page={page}
           pageSize={pageSize}
