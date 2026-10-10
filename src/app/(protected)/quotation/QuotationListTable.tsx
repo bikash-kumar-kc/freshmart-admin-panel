@@ -91,7 +91,7 @@ export default function QuotationListTable({
           </span>
         </td>
         <td className="px-4 py-3 text-table-cell-text">
-          {quotation.requestedBy}
+          {quotation.requestedQuantity}
         </td>
         <td className="px-4 py-3 text-table-cell-text">
           {quotation.createdBy}
