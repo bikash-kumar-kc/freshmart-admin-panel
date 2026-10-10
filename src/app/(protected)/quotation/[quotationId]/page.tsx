@@ -1,32 +1,23 @@
-
 "use client";
 
 import { useParams } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+
 import { useQuotationDetailQuery } from "@/lib/hooks/quotation/quotationDetailsHook";
 import { QuotationDetailsSection } from "./QuotationDetailSection";
 import { QuotationVariantsDetail } from "./QuotationVarientsDetails";
 import { QuotationDetailActionBar } from "./QuotationDetailActionBar";
 import { QuotationDetailHeader } from "./QuotationDetailHeader";
+import {
+  useApproveQuotationMutation,
+  useCancelQuotationMutation,
+} from "@/lib/hooks/quotation/quotation.queries";
 
 export default function QuotationDetailPage() {
   const { quotationId } = useParams<{ quotationId: string }>();
-  const queryClient = useQueryClient();
-  const { data: quotation, isLoading } = useQuotationDetailQuery(quotationId);
 
-  function invalidate() {
-    queryClient.invalidateQueries({
-      queryKey: ["quotationDetail", quotationId],
-    });
-  }
-  function handleCancel() {
-    console.log("cancel quotation", quotationId);
-    invalidate();
-  }
-  function handleApprove() {
-    console.log("approve quotation", quotationId);
-    invalidate();
-  }
+  const { data: quotation, isLoading } = useQuotationDetailQuery(quotationId);
+  const cancel = useCancelQuotationMutation();
+  const approve = useApproveQuotationMutation();
 
   if (isLoading || !quotation) {
     return <p className="text-sm text-app-muted-foreground">Loading...</p>;
@@ -42,8 +33,8 @@ export default function QuotationDetailPage() {
       />
       <QuotationDetailActionBar
         quotation={quotation}
-        onCancel={handleCancel}
-        onApprove={handleApprove}
+        onCancel={() => cancel.mutateAsync(quotationId).catch(() => {})}
+        onApprove={() => approve.mutateAsync(quotationId).catch(() => {})}
       />
     </div>
   );
