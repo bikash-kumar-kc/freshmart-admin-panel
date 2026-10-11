@@ -7,6 +7,7 @@ import { useUnreadNotificationCountQuery } from "@/lib/hooks/notification/notifi
 export default function TopStrip() {
   const router = useRouter();
   const { data } = useUnreadNotificationCountQuery();
+  console.log(data)
   const unreadCount = data?.unreadCount || 0;
 
   return (
