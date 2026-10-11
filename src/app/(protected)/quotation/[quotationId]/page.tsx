@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 
-import { useQuotationDetailQuery } from "@/lib/hooks/quotation/quotationDetailsHook";
+
 import { QuotationDetailsSection } from "./QuotationDetailSection";
 import { QuotationVariantsDetail } from "./QuotationVarientsDetails";
 import { QuotationDetailActionBar } from "./QuotationDetailActionBar";
@@ -10,10 +10,13 @@ import { QuotationDetailHeader } from "./QuotationDetailHeader";
 import {
   useApproveQuotationMutation,
   useCancelQuotationMutation,
+  useQuotationDetailQuery,
 } from "@/lib/hooks/quotation/quotation.queries";
 
 export default function QuotationDetailPage() {
   const { quotationId } = useParams<{ quotationId: string }>();
+
+  console.log(quotationId)
 
   const { data: quotation, isLoading } = useQuotationDetailQuery(quotationId);
   const cancel = useCancelQuotationMutation();
