@@ -29,8 +29,10 @@ class OrderServices {
     query: IOrderListQuery,
   ): Promise<IOrderListResponse<IInventoryOrderRow>> {
     try {
+      const { bucket, ...rest } = query;
+      console.log(bucket)
       const { data } = await api.get("/admin/orders/inventory", {
-        params: query,
+        params: rest,
       });
       return data;
     } catch (error) {
@@ -43,8 +45,10 @@ class OrderServices {
     query: IOrderListQuery,
   ): Promise<IOrderListResponse<IDisplayOrderRow>> {
     try {
+      const { bucket, ...rest } = query;
+      console.log(bucket)
       const { data } = await api.get("/admin/orders/display", {
-        params: query,
+        params: rest,
       });
       return data;
     } catch (error) {
