@@ -1,13 +1,13 @@
 
 import { IKpiCardConfig } from "@/types/dashboard/dashboard.types";
-import { DollarSign, ShoppingCart, PackageCheck, RotateCcw, Users } from "lucide-react";
+import {  ShoppingCart, PackageCheck, RotateCcw, Users, Currency } from "lucide-react";
 
 
 export const kpiCardConfigs: IKpiCardConfig[] = [
   {
     key: "Total Revenue",
     label: "Total Revenue",
-    icon: DollarSign,
+    icon: Currency,
     iconBg: "var(--brand-primary-soft)",
     iconColor: "var(--brand-primary)",
     formatValue: (v) => `$${v.toLocaleString()}`,
