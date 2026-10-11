@@ -87,7 +87,7 @@ export function ProductBottomActionBar({
       <div className="flex justify-end">
         <button
           onClick={() =>
-            router.push(`/quotation/create?productId=${product.productId}`)
+            router.push(`/quotation/createQuotation?vendorId=${product.vendorId}&productId=${product.productId}`)
           }
           className="px-4 py-2 rounded-sm text-sm font-medium bg-brand-primary text-white hover:bg-brand-primary/90 transition-colors"
         >
