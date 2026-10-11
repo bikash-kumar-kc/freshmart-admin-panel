@@ -17,6 +17,7 @@ class QuotationServices {
   }
 
   async approve(quotationId: string) {
+    console.log("we got it here....")
     const { data } = await client.patch(`/admin-quotations/${quotationId}/approve`);
     return data;
   }
