@@ -32,6 +32,7 @@ export interface IDisplayOrderRow {
 }
 
 export interface IOrderListQuery {
+  bucket:string;
   status: string;
   search?: string;
   page: number;
