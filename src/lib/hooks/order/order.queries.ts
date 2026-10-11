@@ -25,6 +25,7 @@ export function useInventoryOrderListQuery(query: IOrderListQuery) {
   return useQuery({
     queryKey: orderKeys.inventoryList(query),
     queryFn: () => orderServices.listInventory(query),
+    enabled:query.bucket ==='inventory'
   });
 }
 
@@ -32,6 +33,7 @@ export function useDisplayOrderListQuery(query: IOrderListQuery) {
   return useQuery({
     queryKey: orderKeys.displayList(query),
     queryFn: () => orderServices.listDisplay(query),
+    enabled:query.bucket ==='display'
   });
 }
 
