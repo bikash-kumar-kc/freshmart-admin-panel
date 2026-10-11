@@ -28,6 +28,8 @@ export default function CreateQuotationPage() {
   const vendorSearchId = searchParams.get("vendorId");
   const productId = searchParams.get("productId");
 
+  console.log(vendorSearchId,productId)
+
   // const { data: vendors = [] } = useApprovedVendorsQuery();
 
   const form = useForm<FormInput, any, FormOutput>({
@@ -92,7 +94,6 @@ export default function CreateQuotationPage() {
     createQuotations.mutate(
       {
         vendorId: values.vendorId,
-        // no adminId: the server reads it from the token
         quotations: values.products.map((p) => ({
           productListingId: p.productListingId,
           variants: p.variants.map((v) => ({
