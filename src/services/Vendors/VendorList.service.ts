@@ -5,10 +5,12 @@ import { showToast } from "@/components/Toast";
 import type {
   IVendorListQuery,
   IVendorListResponse,
-
 } from "@/types/vendors/vendorList.types";
 import { api } from "@/client/axios/client";
-import { IVendorDetail, IVendorDetailResponse } from "@/types/vendors/vendorDetails.types";
+import {
+  IVendorDetail,
+  IVendorDetailResponse,
+} from "@/types/vendors/vendorDetails.types";
 
 function reportError(title: string, error: unknown) {
   if (axios.isAxiosError(error)) {
@@ -47,6 +49,7 @@ class VendorListServices {
 
   async approve(farmId: string) {
     try {
+      console.log("we got it here....");
       const { data } = await api.patch(`/admin/vendor/${farmId}/approve`);
       return data;
     } catch (error) {
