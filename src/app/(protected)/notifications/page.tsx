@@ -8,7 +8,10 @@ import {
   INotificationItem,
   NotificationPillValue,
 } from "@/types/notification/notification.types";
-import { useNotificationListQuery } from "@/lib/hooks/notification/notification.queries";
+import {
+  useNotificationListQuery,
+  useSetNotificationReadMutation,
+} from "@/lib/hooks/notification/notification.queries";
 import { NotificationPillBar } from "./NotificationPillBar";
 import { NotificationCard } from "./NotificationCard";
 
@@ -16,12 +19,6 @@ export default function NotificationsPage() {
   const [pill, setPill] = useState<NotificationPillValue>("all");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-
-  const { data, isLoading } = useNotificationListQuery({
-    pill,
-    page,
-    pageSize,
-  });
 
   // Local-only state: toggling read/unread and dismissing (X) are UI-level, not backend writes yet
   const [localOverrides, setLocalOverrides] = useState<
@@ -47,9 +44,17 @@ export default function NotificationsPage() {
     }));
   }
 
-  const visibleNotifications: INotificationItem[] = (data?.data ?? [])
-    .filter((n) => !localOverrides[n.id]?.dismissed)
-    .map((n) => ({ ...n, isRead: localOverrides[n.id]?.isRead ?? n.isRead }));
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set()); // local only; a reload brings them back
+  const { data, isLoading } = useNotificationListQuery({
+    pill,
+    page,
+    pageSize,
+  });
+  const setRead = useSetNotificationReadMutation();
+
+  const visibleNotifications = (data?.data ?? []).filter(
+    (n) => !dismissed.has(n.id),
+  );
 
   return (
     <div>
@@ -81,8 +86,11 @@ export default function NotificationsPage() {
             <NotificationCard
               key={notification.id}
               notification={notification}
-              onToggleRead={toggleRead}
-              onDismiss={dismiss}
+              onToggleRead={(id) => {
+                const current = visibleNotifications.find((n) => n.id === id);
+                if (current) setRead.mutate({ id, isRead: !current.isRead });
+              }}
+              onDismiss={(id) => setDismissed((prev) => new Set(prev).add(id))}
             />
           ))
         )}
