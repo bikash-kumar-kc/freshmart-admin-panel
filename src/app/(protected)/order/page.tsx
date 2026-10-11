@@ -25,7 +25,7 @@ export default function OrderListPage() {
 
   const debouncedSearch = useDebouncedValue(search, 500);
 
-  const query = {  status, search: debouncedSearch, page, pageSize };
+  const query = { bucket, status, search: debouncedSearch, page, pageSize };
 
   const inventoryQuery = useInventoryOrderListQuery(query);
   const displayQuery = useDisplayOrderListQuery(query);
@@ -36,6 +36,8 @@ export default function OrderListPage() {
   const isLoading =
     bucket === "inventory" ? inventoryQuery.isLoading : displayQuery.isLoading;
   const isSearching = search.trim().length > 0;
+
+  
 
   async function handleUpdateInventoryStatus(
     orderId: string,
