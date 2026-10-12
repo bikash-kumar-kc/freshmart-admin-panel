@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import FREEZE_API_CONSTANTS from "./client/axios/constant";
 
-const publicPaths = ["/login", "/register"];
+const publicPaths = ["/login", "/register","/"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
