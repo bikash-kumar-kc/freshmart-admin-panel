@@ -1,3 +1,5 @@
+import { IDisplayOrderRowReason } from "@/lib/constants/order/OrderStatusConfit";
+
 // types/order/order.types.ts
 export type InventoryOrderStatus =
   | "packaging"
@@ -29,6 +31,7 @@ export interface IDisplayOrderRow {
   status: DisplayOrderStatus;
   confirmationDeadline: string | null;
   createdAt: string;
+  completionReason?:IDisplayOrderRowReason;
 }
 
 export interface IOrderListQuery {

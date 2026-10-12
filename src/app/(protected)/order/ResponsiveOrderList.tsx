@@ -28,7 +28,6 @@ export default function ResponsiveOrderList({
   inventoryData,
   displayData,
   isLoading,
-  onUpdateInventoryStatus,
 }: ResponsiveOrderListProps) {
   const isMobile = useIsMobile();
 
@@ -49,7 +48,6 @@ export default function ResponsiveOrderList({
               <InventoryOrderCard
                 key={o.orderId}
                 order={o}
-                onUpdateStatus={onUpdateInventoryStatus}
               />
             ))
           )}
@@ -60,7 +58,6 @@ export default function ResponsiveOrderList({
       <InventoryOrderTable
         data={inventoryData}
         isLoading={isLoading}
-        onUpdateStatus={onUpdateInventoryStatus}
       />
     );
   }

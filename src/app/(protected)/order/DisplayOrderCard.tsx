@@ -19,8 +19,8 @@ export default function DisplayOrderCard({
     <ListCard
       title={order.customerName}
       status={{ label: status.label, variant: "neutral" }}
-      facts={[order.orderId, order.farmName, `${order.totalItems} items`]}
-      meta={`Deadline: ${formatTimestamp(order.confirmationDeadline)}`}
+      facts={[order.orderId, order.farmName as string, `${order.totalItems} items`]}
+      meta={`Deadline: ${formatTimestamp(order.confirmationDeadline as string)}`}
       onClick={() => router.push(`/order/display/${order.orderId}`)}
     />
   );

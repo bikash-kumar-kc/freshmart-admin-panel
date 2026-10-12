@@ -53,10 +53,10 @@ export default function DisplayOrderTable({
           </span>
         </td>
         <td className="px-4 py-3 text-table-cell-text whitespace-nowrap text-xs">
-          {formatTimestamp(order?.confirmationDeadline)}
+          {formatTimestamp(order?.confirmationDeadline as string)}
         </td>
         <td className="px-4 py-3 text-table-cell-text whitespace-nowrap text-xs">
-          {formatTimestamp(order?.orderDate)}
+          {formatTimestamp(order?.createdAt)}
         </td>
         <td className="px-4 py-3 text-center">
           <button

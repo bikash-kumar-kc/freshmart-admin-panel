@@ -26,9 +26,9 @@ export const displayStatusConfig: Record<DisplayOrderStatus, { label: string; ba
 // UI-only relabel: a "delivered" row that was auto-completed by timeout, not vendor-confirmed
 export const TIMEOUT_BADGE = { label: "Timed Out", badgeClass: "bg-status-neutral-bg text-status-neutral-text" };
 
-export function getDisplayStatusDisplay(status: DisplayOrderStatus, completionReason: IDisplayOrderRowReason) {
+export function getDisplayStatusDisplay(status: DisplayOrderStatus, completionReason?: IDisplayOrderRowReason) {
   if (status === "delivered" && completionReason === "timeout") return TIMEOUT_BADGE;
   return displayStatusConfig[status];
 }
 
-type IDisplayOrderRowReason = "vendor_confirmed" | "timeout" | null;
+export type IDisplayOrderRowReason = "vendor_confirmed" | "timeout" | null;
